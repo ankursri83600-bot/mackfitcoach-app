@@ -82,6 +82,24 @@ export function RazorpayCheckout({
         description: tierName,
         image: "/brand/logo-badge-256.png",
         prefill: data.prefill ?? {},
+        /**
+         * Lead with UPI.
+         *
+         * Razorpay orders the method list by its own defaults, which puts
+         * cards first — wrong for an Indian consumer product where UPI is how
+         * most people actually pay. Checkout silently drops a block whose
+         * methods are not enabled on the account, so this is inert while UPI
+         * is off and correct the moment it is switched on.
+         */
+        config: {
+          display: {
+            blocks: {
+              upi: { name: "Pay by UPI", instruments: [{ method: "upi" }] },
+            },
+            sequence: ["block.upi"],
+            preferences: { show_default_blocks: true },
+          },
+        },
         theme: { color: "#c4262b" },
         handler: async (response: Record<string, string>) => {
           setBusy(true);
@@ -142,7 +160,8 @@ export function RazorpayCheckout({
       </Button>
 
       <p className="mt-3 text-center text-[0.7rem] text-muted-dim">
-        Secured by Razorpay. UPI, cards, net banking and wallets accepted.
+        Secured by Razorpay. Cards, net banking, wallets and UPI — whichever your account has
+        enabled in the Razorpay dashboard.
       </p>
     </div>
   );

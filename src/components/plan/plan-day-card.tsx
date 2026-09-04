@@ -5,7 +5,21 @@ import { Badge } from "@/components/ui";
 import type { PlanDay } from "@/lib/diet/types";
 import { cn } from "@/lib/utils";
 
-export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: boolean }) {
+import { SwapItem } from "./swap-item";
+
+/**
+ * `swap` is optional and absent in print mode: a printed chart cannot be
+ * interacted with, and rendering the control would put a stray icon on paper.
+ */
+export function PlanDayCard({
+  day,
+  printMode,
+  swap,
+}: {
+  day: PlanDay;
+  printMode?: boolean;
+  swap?: { planId: string; swappedKeys: ReadonlySet<string> };
+}) {
   return (
     <div
       className={cn(
@@ -40,13 +54,25 @@ export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: bool
               </p>
             </div>
             <ul className="mt-2 space-y-1">
-              {meal.items.map((item) => (
+              {meal.items.map((item, itemIndex) => (
                 <li
                   key={item.foodId}
                   className="flex items-baseline justify-between gap-4 text-caption text-muted print:text-black/80"
                 >
-                  <span>
-                    {item.name} <span className="text-muted-dim print:text-black/50">— {item.measure}</span>
+                  <span className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+                    {swap && !printMode ? (
+                      <SwapItem
+                        planId={swap.planId}
+                        dayIndex={day.dayIndex}
+                        slotId={meal.slotId}
+                        itemIndex={itemIndex}
+                        isSwapped={swap.swappedKeys.has(`${day.dayIndex}|${meal.slotId}|${itemIndex}`)}
+                      />
+                    ) : null}
+                    <span>
+                      {item.name}{" "}
+                      <span className="text-muted-dim print:text-black/50">— {item.measure}</span>
+                    </span>
                   </span>
                   <span className="shrink-0 font-mono tabular-nums">{item.kcal} kcal</span>
                 </li>

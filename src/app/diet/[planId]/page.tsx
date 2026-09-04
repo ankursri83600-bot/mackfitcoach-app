@@ -7,6 +7,9 @@ import { Reveal, RevealItem } from "@/components/motion/reveal";
 import { LockedDayCard, PlanDayCard } from "@/components/plan/plan-day-card";
 import { MacroRing } from "@/components/plan/macro-ring";
 import { ShoppingListPanel } from "@/components/plan/shopping-list";
+import { applySwaps } from "@/lib/diet/swap";
+
+import { listSwaps } from "./swap-actions";
 import {
   Badge,
   ButtonLink,
@@ -36,8 +39,30 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
   const access = await resolveAccess(entry, search, isRazorpayConfigured());
   if (!access.canView) notFound();
 
-  const { plan } = entry;
   const unlocked = access.level === "full";
+
+  /**
+   * Overrides are applied on READ, never written back into `plan_json`.
+   *
+   * Only for unlocked plans: a locked plan shows day 1 as the engine wrote it,
+   * and there is nothing to swap yet.
+   */
+  const storedSwaps = unlocked ? await listSwaps(planId) : [];
+  const plan = storedSwaps.length > 0 ? applySwaps(entry.plan, storedSwaps) : entry.plan;
+
+  /**
+   * Which POSITIONS changed. Keyed by index rather than food id, because after
+   * a swap the rendered id is the substitute while the stored row is keyed on
+   * the original — matching on the visible id would mark nothing.
+   */
+  const swappedKeys = new Set<string>();
+  for (const sw of storedSwaps) {
+    const day = entry.plan.days.find((d) => d.dayIndex === sw.dayIndex);
+    const meal = day?.meals.find((m) => m.slotId === sw.slotId);
+    const idx = meal?.items.findIndex((i) => i.foodId === sw.fromFoodId) ?? -1;
+    if (idx >= 0) swappedKeys.add(`${sw.dayIndex}|${sw.slotId}|${idx}`);
+  }
+  const swap = unlocked ? { planId, swappedKeys } : undefined;
   const { metrics } = plan;
 
   return (
@@ -130,7 +155,7 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
           {plan.days.map((day) => (
             <RevealItem key={day.dayIndex}>
               {unlocked || day.dayIndex === 1 ? (
-                <PlanDayCard day={day} />
+                <PlanDayCard day={day} swap={swap} />
               ) : (
                 <LockedDayCard day={day} />
               )}
