@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   MackFitCoach design tokens
+   Palette is sampled from the brand badge: near-black ground, bone white
+   lettering, and the crimson of the "FIT" brushstroke as the single accent.
+   Tailwind v4 is CSS-first — there is no tailwind.config.ts.
+   ========================================================================= */
+@theme {
+  /* Surfaces */
+  --color-ink: #050505;
+  --color-surface: #0d0d0f;
+  --color-surface-2: #16161a;
+  --color-surface-3: #1f1f25;
+  --color-hairline: rgb(255 255 255 / 0.08);
+  --color-hairline-hi: rgb(255 255 255 / 0.18);
+
+  /* Brand red */
+  --color-blood: #c4262b;
+  --color-blood-bright: #e03135;
+  --color-blood-deep: #7e1417;
+
+  /* Text tiers */
+  --color-bone: #f5f3f1;
+  --color-ash: #8a8a90;
+  --color-ash-dim: #5d5d64;
+
+  /* Status */
+  --color-good: #3fb950;
+  --color-warn: #d29922;
+
+  /* Families — wired to the next/font CSS variables in layout.tsx */
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Menlo, monospace;
+
+  /* Fluid type scale: min at 360px, max at 1440px */
+  --text-caption: clamp(0.6875rem, 0.66rem + 0.14vw, 0.75rem);
+  --text-body: clamp(0.9375rem, 0.9rem + 0.23vw, 1.0625rem);
+  --text-lead: clamp(1.0625rem, 0.98rem + 0.42vw, 1.375rem);
+  --text-h4: clamp(1.25rem, 1.11rem + 0.7vw, 1.75rem);
+  --text-h3: clamp(1.625rem, 1.32rem + 1.51vw, 2.75rem);
+  --text-h2: clamp(2.25rem, 1.55rem + 3.49vw, 4.5rem);
+  --text-h1: clamp(2.75rem, 1.44rem + 6.5vw, 7rem);
+  --text-mega: clamp(3.5rem, 0.6rem + 14.5vw, 13rem);
+
+  --leading-mega: 0.84;
+  --leading-display: 0.94;
+  --tracking-mega: -0.04em;
+  --tracking-display: -0.025em;
+
+  /* Radii */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+  --radius-pill: 999px;
+
+  /* Easing + duration */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 180ms;
+  --duration-base: 420ms;
+  --duration-slow: 800ms;
+  --duration-cinematic: 1200ms;
+
+  /* Layout */
+  --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --container-page: 88rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* The custom cursor must never take the focus ring with it. */
+  :focus-visible {
+    outline: 2px solid var(--color-blood-bright);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background-color: var(--color-blood);
+    color: var(--color-bone);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+    text-transform: uppercase;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility text-display-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-bone) 0%,
+    var(--color-bone) 45%,
+    var(--color-blood-bright) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility grain {
+  position: relative;
+}
+
+/* Subtle film grain, matching the badge's grunge texture. Decorative only. */
+@utility grain-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================================
+   Scroll-reveal and text-reveal, done in CSS.
+
+   These replace a JS animation library. Every animation on this site is a
+   transform/opacity transition, which CSS does natively on the compositor — the
+   library was costing ~150KB gzipped to express the same thing. JS now only adds
+   an `is-visible` class via IntersectionObserver; CSS owns all the motion.
+
+   The un-revealed state is applied only when `.js-reveal` is present, which the
+   observer component sets on mount. That means content is fully visible if JS
+   never runs, instead of being stuck at opacity 0.
+   ========================================================================= */
+@utility reveal-hidden {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 28px), 0);
+}
+
+.js-reveal {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 28px), 0);
+  transition:
+    opacity var(--reveal-duration, 700ms) var(--ease-out-expo) var(--reveal-delay, 0ms),
+    transform var(--reveal-duration, 700ms) var(--ease-out-expo) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Per-unit mask-up used by the display headlines. */
+.js-split-unit {
+  display: inline-block;
+  transform: translate3d(0, 115%, 0);
+  transition: transform var(--split-duration, 900ms) var(--ease-out-expo)
+    calc(var(--split-delay, 0ms) + var(--i, 0) * var(--split-stagger, 45ms));
+  will-change: transform;
+}
+
+.is-visible > .js-split-unit,
+.is-visible.js-split-unit {
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal,
+  .js-split-unit {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Marquee: compositor-only, no JS measurement. */
+@keyframes marquee-left {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+/* Intake wizard step entrance; direction decides which edge it enters from. */
+@keyframes step-in-forward {
+  from {
+    opacity: 0;
+    transform: translate3d(48px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-48px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================================
+   Global reduced-motion kill switch.
+   Motion primitives ALSO early-return in JS so observers and RAF loops are
+   never created; this block is the CSS half of the same contract.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   Print — used by the diet chart print route.
+   ========================================================================= */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-day {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
 }

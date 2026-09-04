@@ -5,22 +5,39 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start -p 3100",
+    "lint": "eslint",
+    "test": "tsx --test src/lib/diet/__tests__/*.test.ts src/lib/__tests__/*.test.ts",
+    "brand": "node scripts/build-brand-assets.mjs",
+    "placeholders": "node scripts/build-placeholder-images.mjs",
+    "seed:coaches": "tsx scripts/seed-coaches.ts",
+    "test:db": "node scripts/verify-migrations.mjs",
+    "test:all": "npm test && npm run test:db"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.2",
+    "clsx": "^2.1.1",
+    "lenis": "^1.3.26",
+    "lucide-react": "^1.31.0",
     "next": "16.3.0",
+    "pdf-lib": "^1.17.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.4",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
+    "tsx": "^4.23.11",
     "typescript": "^5"
   }
 }
