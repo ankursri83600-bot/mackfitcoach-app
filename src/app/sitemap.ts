@@ -17,6 +17,7 @@ const routes: Array<{
 }> = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/diet", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/tools", changeFrequency: "weekly", priority: 0.8 },
   { path: "/plans", changeFrequency: "weekly", priority: 0.9 },
   { path: "/transformations", changeFrequency: "weekly", priority: 0.8 },
   { path: "/coaches", changeFrequency: "monthly", priority: 0.7 },

@@ -10,6 +10,7 @@ const COLUMNS = [
     title: "Programme",
     links: [
       { href: "/diet", label: "Free diet chart" },
+      { href: "/tools", label: "Fitness calculators" },
       { href: "/plans", label: "Pricing" },
       { href: "/book", label: "Book a consult" },
       { href: "/transformations", label: "Transformations" },
