@@ -91,7 +91,7 @@ export default async function AdminOrdersPage() {
                       {order.reconciliation_error}
                     </span>
                   ) : (
-                    <span className="text-ash-dim">—</span>
+                    <span className="text-muted-dim">—</span>
                   )}
                 </Cell>
               </Row>

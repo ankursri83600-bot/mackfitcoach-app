@@ -54,7 +54,7 @@ export default async function DashboardPage() {
       <Container>
         <Reveal>
           <Eyebrow>Account</Eyebrow>
-          <h1 className="mt-3 font-display text-h2 text-bone">
+          <h1 className="mt-3 font-display text-h2 text-ink">
             {profile.full_name ? `HELLO, ${profile.full_name.split(" ")[0].toUpperCase()}` : "MY DASHBOARD"}
           </h1>
         </Reveal>
@@ -63,14 +63,14 @@ export default async function DashboardPage() {
           {/* Plans */}
           <Reveal>
             <Card>
-              <h2 className="flex items-center gap-2 font-display text-h4 text-bone">
+              <h2 className="flex items-center gap-2 font-display text-h4 text-ink">
                 <FileText className="size-4 text-blood" aria-hidden="true" />
                 My diet charts
               </h2>
               <Rule className="my-5" />
 
               {plans.length === 0 ? (
-                <div className="text-caption text-ash">
+                <div className="text-caption text-muted">
                   <p>No charts yet.</p>
                   <ButtonLink href="/diet" className="mt-4">
                     Build my first chart
@@ -83,11 +83,11 @@ export default async function DashboardPage() {
                       <div>
                         <Link
                           href={`/diet/${plan.id}`}
-                          className="font-display text-sm uppercase tracking-[0.06em] text-bone hover:text-blood-bright"
+                          className="font-display text-sm uppercase tracking-[0.06em] text-ink hover:text-blood-bright"
                         >
                           {GOAL_LABEL[plan.goal]} · {plan.targetKcal} kcal
                         </Link>
-                        <p className="text-[0.7rem] text-ash-dim">
+                        <p className="text-[0.7rem] text-muted-dim">
                           BMI {plan.bmi} · {plan.dietType.replace("_", "-")} ·{" "}
                           {formatDateIST(plan.createdAt)}
                         </p>
@@ -105,26 +105,26 @@ export default async function DashboardPage() {
           {/* Orders */}
           <Reveal delay={0.08}>
             <Card>
-              <h2 className="flex items-center gap-2 font-display text-h4 text-bone">
+              <h2 className="flex items-center gap-2 font-display text-h4 text-ink">
                 <Receipt className="size-4 text-blood" aria-hidden="true" />
                 Orders
               </h2>
               <Rule className="my-5" />
 
               {orders.length === 0 ? (
-                <p className="text-caption text-ash">No purchases yet.</p>
+                <p className="text-caption text-muted">No purchases yet.</p>
               ) : (
                 <ul className="space-y-4">
                   {orders.map((order) => (
                     <li key={order.id as string} className="flex items-center justify-between gap-4">
                       <div>
-                        <p className="text-caption text-bone">{order.tier_name_snapshot as string}</p>
-                        <p className="text-[0.7rem] text-ash-dim">
+                        <p className="text-caption text-ink">{order.tier_name_snapshot as string}</p>
+                        <p className="text-[0.7rem] text-muted-dim">
                           {formatDateIST(order.created_at as string)}
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="font-mono text-caption tabular-nums text-ash">
+                        <span className="font-mono text-caption tabular-nums text-muted">
                           {formatINR(order.amount_paise as number)}
                         </span>
                         <Badge tone={order.status === "paid" ? "good" : "neutral"}>
@@ -141,14 +141,14 @@ export default async function DashboardPage() {
           {/* Bookings */}
           <Reveal delay={0.12} className="lg:col-span-2">
             <Card>
-              <h2 className="flex items-center gap-2 font-display text-h4 text-bone">
+              <h2 className="flex items-center gap-2 font-display text-h4 text-ink">
                 <CalendarClock className="size-4 text-blood" aria-hidden="true" />
                 Consultations
               </h2>
               <Rule className="my-5" />
 
               {bookings.length === 0 ? (
-                <div className="text-caption text-ash">
+                <div className="text-caption text-muted">
                   <p>No sessions booked.</p>
                   <ButtonLink href="/book" className="mt-4">
                     Book a consult
@@ -164,11 +164,11 @@ export default async function DashboardPage() {
                         className="flex flex-wrap items-center justify-between gap-3"
                       >
                         <div>
-                          <p className="text-caption text-bone">
+                          <p className="text-caption text-ink">
                             {coach?.name ?? "Coach"}{" "}
-                            <span className="text-ash">({coach?.kind ?? "coach"})</span>
+                            <span className="text-muted">({coach?.kind ?? "coach"})</span>
                           </p>
-                          <p className="text-[0.7rem] text-ash-dim">
+                          <p className="text-[0.7rem] text-muted-dim">
                             {formatDateIST(booking.slot_date as string)} at{" "}
                             {formatTime24to12(String(booking.slot_start).slice(0, 5))} IST
                           </p>
@@ -206,7 +206,7 @@ export default async function DashboardPage() {
           <form action="/auth/signout" method="post">
             <button
               type="submit"
-              className="font-display text-caption uppercase tracking-[0.16em] text-ash transition-colors hover:text-blood-bright"
+              className="font-display text-caption uppercase tracking-[0.16em] text-muted transition-colors hover:text-blood-bright"
             >
               Sign out
             </button>

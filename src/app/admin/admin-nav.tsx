@@ -31,7 +31,7 @@ export function AdminNav({ items }: { items: readonly { href: string; label: str
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative block whitespace-nowrap px-4 py-3 font-display text-[0.7rem] uppercase tracking-[0.14em] transition-colors",
-                  active ? "text-bone" : "text-ash hover:text-bone",
+                  active ? "text-ink" : "text-muted hover:text-ink",
                 )}
               >
                 {item.label}

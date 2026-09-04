@@ -29,10 +29,10 @@ export default async function BookPage() {
       <Container>
         <Reveal className="mb-10 max-w-2xl">
           <Eyebrow>1-to-1 coaching</Eyebrow>
-          <h1 className="mt-4 font-display text-h2 leading-display text-bone">
+          <h1 className="mt-4 font-display text-h2 leading-display text-ink">
             TALK TO A REAL COACH
           </h1>
-          <p className="mt-4 text-ash">
+          <p className="mt-4 text-muted">
             Pick a coach, a date and a time. Once the booking is in you get a WhatsApp link and the
             coach&apos;s number so you can talk directly — no extra app to install.
           </p>
@@ -41,13 +41,13 @@ export default async function BookPage() {
         {!bookingEnabled ? (
           <Reveal className="mb-8">
             <FormAlert tone="info">
-              <strong className="text-bone">Online booking is not connected yet.</strong> Add your
+              <strong className="text-ink">Online booking is not connected yet.</strong> Add your
               Supabase keys to enable it. In the meantime,{" "}
               <a
                 href={supportWhatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-bone underline"
+                className="text-ink underline"
               >
                 message the coach on WhatsApp
               </a>

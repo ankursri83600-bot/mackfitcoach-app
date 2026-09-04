@@ -62,25 +62,25 @@ export default async function AdminBookingsPage() {
             >
               <div className="flex flex-wrap items-start justify-between gap-6">
                 <div className="min-w-56 space-y-2">
-                  <p className="font-mono text-caption tabular-nums text-bone">
+                  <p className="font-mono text-caption tabular-nums text-ink">
                     {formatDateIST(booking.slot_date)} ·{" "}
                     {formatTime24to12(String(booking.slot_start).slice(0, 5))} IST
                   </p>
-                  <p className="text-[0.7rem] text-ash">
+                  <p className="text-[0.7rem] text-muted">
                     {booking.coaches?.kind ?? "coach"} · via {booking.mode}
                   </p>
-                  <p className="text-[0.7rem] text-ash-dim">
+                  <p className="text-[0.7rem] text-muted-dim">
                     {booking.email} · {booking.phone}
                   </p>
                   {booking.preferred_time ? (
-                    <p className="text-[0.7rem] text-ash">
-                      <span className="text-ash-dim">Prefers:</span> {booking.preferred_time}
+                    <p className="text-[0.7rem] text-muted">
+                      <span className="text-muted-dim">Prefers:</span> {booking.preferred_time}
                     </p>
                   ) : null}
                 </div>
 
                 {booking.topic ? (
-                  <p className="max-w-md flex-1 border-l-2 border-hairline-hi pl-4 text-caption italic leading-relaxed text-ash">
+                  <p className="max-w-md flex-1 border-l-2 border-hairline-hi pl-4 text-caption italic leading-relaxed text-muted">
                     “{booking.topic}”
                   </p>
                 ) : null}
@@ -95,7 +95,7 @@ export default async function AdminBookingsPage() {
                         <button
                           type="submit"
                           disabled={demo}
-                          className="rounded-pill border border-hairline-hi px-4 py-1.5 font-display text-[0.62rem] uppercase tracking-[0.14em] text-ash transition-colors hover:border-blood hover:text-blood-bright disabled:pointer-events-none disabled:opacity-40"
+                          className="rounded-pill border border-hairline-hi px-4 py-1.5 font-display text-[0.62rem] uppercase tracking-[0.14em] text-muted transition-colors hover:border-blood hover:text-blood-bright disabled:pointer-events-none disabled:opacity-40"
                         >
                           Mark {status}
                         </button>

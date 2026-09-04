@@ -51,7 +51,7 @@ export default async function AdminIntakesPage() {
           <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-warn">
             {flagged.length} intake{flagged.length === 1 ? "" : "s"} disclosed a medical condition
           </p>
-          <p className="mt-2 max-w-2xl text-caption leading-relaxed text-ash">
+          <p className="mt-2 max-w-2xl text-caption leading-relaxed text-muted">
             An automatically generated chart is general guidance, not treatment. Have the dietician
             read these before the client starts, and tell them to speak to their doctor.
           </p>
@@ -73,7 +73,7 @@ export default async function AdminIntakesPage() {
                 </Cell>
                 <Cell>
                   <span className="block">{intake.full_name ?? "Guest"}</span>
-                  <span className="block text-[0.68rem] text-ash-dim">
+                  <span className="block text-[0.68rem] text-muted-dim">
                     {intake.email ?? "no email"}
                   </span>
                   {intake.medical_notes ? (
@@ -96,7 +96,7 @@ export default async function AdminIntakesPage() {
                 </Cell>
                 <Cell numeric>
                   {intake.target_kcal} kcal
-                  <span className="block text-[0.68rem] text-ash-dim">
+                  <span className="block text-[0.68rem] text-muted-dim">
                     P{intake.protein_g} C{intake.carbs_g} F{intake.fat_g}
                   </span>
                 </Cell>

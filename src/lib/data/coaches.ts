@@ -55,7 +55,7 @@ export async function listCoaches(): Promise<CoachRecord[]> {
     experienceYears: 0,
     photoSrc: row.photo_path
       ? publicStorageUrl("coach-photos", row.photo_path as string)
-      : "/placeholder/coach-mack.jpg",
+      : "/coach/coach-mack.jpg",
     id: row.id as string,
     slotMinutes: (row.slot_minutes as number) ?? 30,
     leadTimeMinutes: (row.lead_time_minutes as number) ?? 120,

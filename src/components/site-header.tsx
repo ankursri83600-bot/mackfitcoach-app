@@ -39,7 +39,7 @@ export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
     <header
       className={cn(
         "sticky top-0 z-50 w-full print:hidden transition-all duration-300",
-        scrolled ? "border-b border-hairline bg-ink/85 backdrop-blur-lg" : "bg-transparent",
+        scrolled ? "border-b border-hairline bg-canvas/85 backdrop-blur-lg" : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-20 w-full max-w-[--container-page] items-center justify-between px-(--spacing-gutter)">
@@ -54,7 +54,7 @@ export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
                 href={item.href}
                 className={cn(
                   "relative font-display text-[0.78rem] tracking-[0.16em] uppercase transition-colors duration-200",
-                  active ? "text-blood-bright" : "text-bone/80 hover:text-bone",
+                  active ? "text-blood-bright" : "text-ink/80 hover:text-ink",
                 )}
               >
                 {item.label}
@@ -70,14 +70,14 @@ export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
           {authSlot ?? (
             <Link
               href="/login"
-              className="font-display text-[0.78rem] tracking-[0.16em] uppercase text-bone/80 transition-colors hover:text-bone"
+              className="font-display text-[0.78rem] tracking-[0.16em] uppercase text-ink/80 transition-colors hover:text-ink"
             >
               Log in
             </Link>
           )}
           <Link
             href="/book"
-            className="rounded-pill bg-blood px-6 py-3 font-display text-[0.78rem] tracking-[0.16em] uppercase text-bone transition-colors duration-200 hover:bg-blood-bright"
+            className="rounded-pill bg-blood px-6 py-3 font-display text-[0.78rem] tracking-[0.16em] uppercase text-canvas transition-colors duration-200 hover:bg-blood-bright"
           >
             Book a call
           </Link>
@@ -89,7 +89,7 @@ export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="grid size-11 place-items-center rounded-sm border border-hairline text-bone lg:hidden"
+          className="grid size-11 place-items-center rounded-sm border border-hairline text-ink lg:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -99,24 +99,24 @@ export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
         <div
           id="mobile-nav"
           data-lenis-prevent
-          className="border-t border-hairline bg-ink px-(--spacing-gutter) pb-8 pt-4 lg:hidden"
+          className="border-t border-hairline bg-canvas px-(--spacing-gutter) pb-8 pt-4 lg:hidden"
         >
           <nav aria-label="Mobile" className="flex flex-col">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="border-b border-hairline py-4 font-display text-lg tracking-[0.06em] uppercase text-bone"
+                className="border-b border-hairline py-4 font-display text-lg tracking-[0.06em] uppercase text-ink"
               >
                 {item.label}
               </Link>
             ))}
-            <Link href="/dashboard" className="py-4 font-display text-lg uppercase text-bone/70">
+            <Link href="/dashboard" className="py-4 font-display text-lg uppercase text-ink/70">
               My account
             </Link>
             <Link
               href="/book"
-              className="mt-3 rounded-pill bg-blood px-6 py-3.5 text-center font-display text-sm tracking-[0.16em] uppercase text-bone"
+              className="mt-3 rounded-pill bg-blood px-6 py-3.5 text-center font-display text-sm tracking-[0.16em] uppercase text-canvas"
             >
               Book a call
             </Link>

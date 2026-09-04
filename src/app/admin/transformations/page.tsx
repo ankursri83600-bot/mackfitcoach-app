@@ -44,12 +44,12 @@ export default async function AdminTransformationsPage() {
       </section>
 
       <div className="mb-8 mt-8 rounded-md border border-hairline bg-surface p-5">
-        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-bone">
+        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-ink">
           Publishing rules
         </p>
-        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-ash">
-          A story only appears publicly when it is <span className="text-bone">published</span> and{" "}
-          <span className="text-bone">consent is on file</span>. Both conditions are enforced by the
+        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-muted">
+          A story only appears publicly when it is <span className="text-ink">published</span> and{" "}
+          <span className="text-ink">consent is on file</span>. Both conditions are enforced by the
           database policy, not just by this screen, so another client of the API cannot bypass them.
           Use a display name like &ldquo;Rahul S.&rdquo; rather than a full legal name — these are
           photographs of someone&apos;s body on a public website.
@@ -59,7 +59,7 @@ export default async function AdminTransformationsPage() {
       {rows.length === 0 ? (
         <EmptyState>
           No stories yet. Upload before/after images to the{" "}
-          <code className="text-bone">transformations</code> storage bucket, then add a row
+          <code className="text-ink">transformations</code> storage bucket, then add a row
           referencing their object keys.
         </EmptyState>
       ) : (
@@ -104,7 +104,7 @@ export default async function AdminTransformationsPage() {
                           ? "Record written consent before publishing"
                           : undefined
                       }
-                      className="whitespace-nowrap rounded-pill border border-hairline-hi px-4 py-1.5 font-display text-[0.62rem] uppercase tracking-[0.14em] text-ash transition-colors hover:border-blood hover:text-blood-bright disabled:pointer-events-none disabled:opacity-40"
+                      className="whitespace-nowrap rounded-pill border border-hairline-hi px-4 py-1.5 font-display text-[0.62rem] uppercase tracking-[0.14em] text-muted transition-colors hover:border-blood hover:text-blood-bright disabled:pointer-events-none disabled:opacity-40"
                     >
                       {row.is_published ? "Unpublish" : "Publish"}
                     </button>

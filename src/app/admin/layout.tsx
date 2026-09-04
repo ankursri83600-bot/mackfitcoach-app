@@ -32,16 +32,16 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const { profile, demo } = await requireStaffOrDemo();
 
   return (
-    <div className="min-h-dvh bg-ink">
-      <header className="sticky top-0 z-40 border-b border-hairline bg-ink/90 backdrop-blur-lg">
+    <div className="min-h-dvh bg-canvas">
+      <header className="sticky top-0 z-40 border-b border-hairline bg-canvas/90 backdrop-blur-lg">
         <div className="mx-auto flex w-full max-w-[--container-page] flex-wrap items-center justify-between gap-4 px-(--spacing-gutter) py-4">
           <div className="flex items-center gap-3">
             <LogoBadge size={36} />
             <div>
-              <p className="font-display text-[0.8rem] uppercase tracking-[0.2em] text-bone">
+              <p className="font-display text-[0.8rem] uppercase tracking-[0.2em] text-ink">
                 Admin console
               </p>
-              <p className="text-[0.68rem] text-ash">
+              <p className="text-[0.68rem] text-muted">
                 {demo ? "Preview mode · not signed in" : `${profile?.full_name ?? "Staff"} · ${profile?.role}`}
               </p>
             </div>
@@ -50,7 +50,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-ash transition-colors hover:text-bone"
+              className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink"
             >
               View site
             </Link>
@@ -58,7 +58,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               <form action="/auth/signout" method="post">
                 <button
                   type="submit"
-                  className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-ash transition-colors hover:text-blood-bright"
+                  className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-blood-bright"
                 >
                   Sign out
                 </button>

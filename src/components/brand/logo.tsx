@@ -28,12 +28,12 @@ export function Wordmark({ className, subClassName }: WordmarkProps) {
   return (
     <span className={cn("flex flex-col leading-none", className)}>
       <span className="font-display tracking-[-0.02em]">
-        <span className="text-bone">{lead}</span>
+        <span className="text-ink">{lead}</span>
         <span className="text-blood">{accent}</span>
       </span>
       <span
         className={cn(
-          "font-display text-[0.36em] leading-none tracking-[0.34em] text-bone/85",
+          "font-display text-[0.36em] leading-none tracking-[0.34em] text-ink/85",
           subClassName,
         )}
       >

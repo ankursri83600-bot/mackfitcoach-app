@@ -26,7 +26,7 @@ export default async function CoachesPage() {
             as="h1"
             text="COACHED BY PEOPLE, NOT AN APP."
             onScroll
-            className="mt-5 font-display text-h2 leading-display text-bone"
+            className="mt-5 font-display text-h2 leading-display text-ink"
           />
         </Reveal>
 
@@ -41,21 +41,21 @@ export default async function CoachesPage() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink to-transparent p-5 pt-16">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas to-transparent p-5 pt-16">
                   <Badge tone={coach.kind === "dietician" ? "blood" : "neutral"}>{coach.kind}</Badge>
-                  <h2 className="mt-3 font-display text-h4 text-bone">{coach.name}</h2>
-                  <p className="text-caption text-ash">{coach.headline}</p>
+                  <h2 className="mt-3 font-display text-h4 text-ink">{coach.name}</h2>
+                  <p className="text-caption text-muted">{coach.headline}</p>
                 </div>
               </div>
 
-              <p className="mt-4 text-caption leading-relaxed text-ash">{coach.bio}</p>
+              <p className="mt-4 text-caption leading-relaxed text-muted">{coach.bio}</p>
 
               {coach.specialties.length ? (
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {coach.specialties.map((s) => (
                     <li
                       key={s}
-                      className="rounded-pill border border-hairline px-3 py-1 font-mono text-[0.65rem] text-ash-dim"
+                      className="rounded-pill border border-hairline px-3 py-1 font-mono text-[0.65rem] text-muted-dim"
                     >
                       {s}
                     </li>

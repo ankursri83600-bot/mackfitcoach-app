@@ -55,12 +55,12 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-hairline bg-ink print:hidden">
+    <footer className="border-t border-hairline bg-canvas print:hidden">
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
             <Logo variant="stacked" size={72} href={null} className="items-start" />
-            <p className="mt-5 max-w-xs text-caption leading-relaxed text-ash">
+            <p className="mt-5 max-w-xs text-caption leading-relaxed text-muted">
               {siteConfig.description}
             </p>
             <div className="mt-5 flex items-center gap-3">
@@ -69,7 +69,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="grid size-10 place-items-center rounded-sm border border-hairline text-ash transition-colors hover:border-blood hover:text-blood-bright"
+                className="grid size-10 place-items-center rounded-sm border border-hairline text-muted transition-colors hover:border-blood hover:text-blood-bright"
               >
                 <InstagramIcon className="size-4" />
               </a>
@@ -78,7 +78,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="grid size-10 place-items-center rounded-sm border border-hairline text-ash transition-colors hover:border-blood hover:text-blood-bright"
+                className="grid size-10 place-items-center rounded-sm border border-hairline text-muted transition-colors hover:border-blood hover:text-blood-bright"
               >
                 <YoutubeIcon className="size-4" />
               </a>
@@ -87,7 +87,7 @@ export function SiteFooter() {
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="font-display text-[0.75rem] tracking-[0.24em] text-bone">
+              <h3 className="font-display text-[0.75rem] tracking-[0.24em] text-ink">
                 {col.title}
               </h3>
               <ul className="mt-5 space-y-3">
@@ -95,7 +95,7 @@ export function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-caption text-ash transition-colors hover:text-bone"
+                      className="text-caption text-muted transition-colors hover:text-ink"
                     >
                       {link.label}
                     </Link>
@@ -112,20 +112,20 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
               href={`mailto:${siteConfig.contact.email}`}
-              className="inline-flex items-center gap-2 text-caption text-ash transition-colors hover:text-bone"
+              className="inline-flex items-center gap-2 text-caption text-muted transition-colors hover:text-ink"
             >
               <Mail className="size-3.5" aria-hidden="true" />
               {siteConfig.contact.email}
             </a>
             <a
               href={`tel:${siteConfig.contact.whatsapp}`}
-              className="inline-flex items-center gap-2 text-caption text-ash transition-colors hover:text-bone"
+              className="inline-flex items-center gap-2 text-caption text-muted transition-colors hover:text-ink"
             >
               <Phone className="size-3.5" aria-hidden="true" />
               {siteConfig.contact.phoneLabel}
             </a>
           </div>
-          <p className="text-caption text-ash-dim">
+          <p className="text-caption text-muted-dim">
             © {year} {siteConfig.name}. All rights reserved.
           </p>
         </div>

@@ -17,7 +17,7 @@ export default function DietIntakePage() {
       <Container>
         <Reveal className="mb-12 text-center">
           <Eyebrow className="justify-center">Free diet chart</Eyebrow>
-          <h1 className="mx-auto mt-4 max-w-2xl font-display text-h2 leading-display text-bone">
+          <h1 className="mx-auto mt-4 max-w-2xl font-display text-h2 leading-display text-ink">
             NINETY SECONDS TO YOUR CHART
           </h1>
         </Reveal>

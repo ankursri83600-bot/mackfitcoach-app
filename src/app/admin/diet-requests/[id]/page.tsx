@@ -35,7 +35,7 @@ export default async function AdminIntakeDetailPage({
         action={
           <Link
             href="/admin/diet-requests"
-            className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-ash hover:text-bone"
+            className="font-display text-[0.7rem] uppercase tracking-[0.14em] text-muted hover:text-ink"
           >
             ← All intakes
           </Link>
@@ -52,8 +52,8 @@ export default async function AdminIntakeDetailPage({
             <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-warn">
               Medical note from the client
             </p>
-            <p className="mt-3 text-caption leading-relaxed text-bone">{row.medical_notes}</p>
-            <p className="mt-3 text-[0.7rem] leading-relaxed text-ash">
+            <p className="mt-3 text-caption leading-relaxed text-ink">{row.medical_notes}</p>
+            <p className="mt-3 text-[0.7rem] leading-relaxed text-muted">
               Automated charts are general guidance, not treatment. Review this before the client
               starts, and advise them to speak to their doctor.
             </p>
@@ -101,7 +101,7 @@ export default async function AdminIntakeDetailPage({
                 value: (
                   <>
                     {row.bmi}{" "}
-                    <span className="text-ash">({String(row.bmi_category).replace("_", " ")})</span>
+                    <span className="text-muted">({String(row.bmi_category).replace("_", " ")})</span>
                   </>
                 ),
               },
@@ -127,7 +127,7 @@ export default async function AdminIntakeDetailPage({
               { label: "Fat", value: `${row.fat_g} g` },
             ]}
           />
-          <p className="mt-5 text-[0.7rem] leading-relaxed text-ash-dim">
+          <p className="mt-5 text-[0.7rem] leading-relaxed text-muted-dim">
             Stored at generation time, not recomputed on read — so the chart the client received can
             always be audited against the numbers it was built from.
           </p>
@@ -156,7 +156,7 @@ export default async function AdminIntakeDetailPage({
           <SectionCard title="Generated chart">
             <Link
               href={`/diet/${planId}`}
-              className="inline-flex items-center gap-2 rounded-pill bg-blood px-6 py-3 font-display text-[0.72rem] uppercase tracking-[0.16em] text-bone transition-colors hover:bg-blood-bright"
+              className="inline-flex items-center gap-2 rounded-pill bg-blood px-6 py-3 font-display text-[0.72rem] uppercase tracking-[0.16em] text-canvas transition-colors hover:bg-blood-bright"
             >
               Open the client&apos;s chart
             </Link>

@@ -138,7 +138,7 @@ export function IntakeForm() {
   return (
     <div className="mx-auto w-full max-w-2xl">
       <div className="mb-10">
-        <div className="flex items-center justify-between text-caption text-ash">
+        <div className="flex items-center justify-between text-caption text-muted">
           <span aria-live="polite">
             Step {state.step + 1} of {TOTAL_STEPS}
           </span>
@@ -216,7 +216,7 @@ export function IntakeForm() {
               <Step key="step-1" legend="Tell us about you">
                 <div className="grid gap-6 sm:grid-cols-2">
                   <label className="flex flex-col gap-2">
-                    <span className="text-caption text-ash">Age</span>
+                    <span className="text-caption text-muted">Age</span>
                     <input
                       type="number"
                       inputMode="numeric"
@@ -230,7 +230,7 @@ export function IntakeForm() {
                     />
                   </label>
                   <div className="flex flex-col gap-2">
-                    <span className="text-caption text-ash">Biological sex</span>
+                    <span className="text-caption text-muted">Biological sex</span>
                     <div className="flex gap-3">
                       {(["male", "female"] as Gender[]).map((g) => (
                         <OptionCard
@@ -245,7 +245,7 @@ export function IntakeForm() {
                     </div>
                   </div>
                 </div>
-                <p className="mt-4 text-caption text-ash-dim">
+                <p className="mt-4 text-caption text-muted-dim">
                   Biological sex changes the BMR formula and calorie floor — it is not asking about
                   gender identity.
                 </p>
@@ -255,7 +255,7 @@ export function IntakeForm() {
               <Step key="step-2" legend="Height and weight">
                 <div className="grid gap-6 sm:grid-cols-2">
                   <label className="flex flex-col gap-2">
-                    <span className="text-caption text-ash">Height (cm)</span>
+                    <span className="text-caption text-muted">Height (cm)</span>
                     <input
                       type="number"
                       inputMode="decimal"
@@ -271,7 +271,7 @@ export function IntakeForm() {
                     />
                   </label>
                   <label className="flex flex-col gap-2">
-                    <span className="text-caption text-ash">Weight (kg)</span>
+                    <span className="text-caption text-muted">Weight (kg)</span>
                     <input
                       type="number"
                       inputMode="decimal"
@@ -304,7 +304,7 @@ export function IntakeForm() {
                       <span className="font-display text-sm uppercase tracking-[0.08em]">
                         {level.replace(/^\w/, (c) => c.toUpperCase())}
                       </span>
-                      <span className="text-caption text-ash">{ACTIVITY_LABEL[level]}</span>
+                      <span className="text-caption text-muted">{ACTIVITY_LABEL[level]}</span>
                     </OptionCard>
                   ))}
                 </div>
@@ -326,7 +326,7 @@ export function IntakeForm() {
 
                 {state.dietType === "non_veg" ? (
                   <div className="overflow-hidden">
-                      <p className="mb-3 mt-6 text-caption text-ash">
+                      <p className="mb-3 mt-6 text-caption text-muted">
                         Which days do you eat meat or fish?
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -339,8 +339,8 @@ export function IntakeForm() {
                             className={cn(
                               "rounded-pill border px-4 py-2 font-display text-xs tracking-[0.1em] uppercase transition-colors",
                               state.nonVegDays.includes(i as Weekday)
-                                ? "border-blood bg-blood text-bone"
-                                : "border-hairline-hi text-ash hover:border-bone/40",
+                                ? "border-blood bg-blood text-canvas"
+                                : "border-hairline-hi text-muted hover:border-ink/40",
                             )}
                           >
                             {label}
@@ -351,7 +351,7 @@ export function IntakeForm() {
                 ) : null}
 
                 <div className="mt-8">
-                  <p className="mb-3 text-caption text-ash">Any allergies to avoid?</p>
+                  <p className="mb-3 text-caption text-muted">Any allergies to avoid?</p>
                   <div className="flex flex-wrap gap-2">
                     {ALLERGEN_OPTIONS.map(({ tag, label }) => (
                       <button
@@ -363,7 +363,7 @@ export function IntakeForm() {
                           "rounded-pill border px-4 py-2 text-caption transition-colors",
                           state.excludeTags.includes(tag)
                             ? "border-blood bg-blood/15 text-blood-bright"
-                            : "border-hairline-hi text-ash hover:border-bone/40",
+                            : "border-hairline-hi text-muted hover:border-ink/40",
                         )}
                       >
                         {label}
@@ -388,10 +388,10 @@ export function IntakeForm() {
                 </div>
 
                 <div className="mt-8 rounded-md border border-hairline bg-surface p-5">
-                  <p className="font-display text-sm uppercase tracking-[0.1em] text-bone">
+                  <p className="font-display text-sm uppercase tracking-[0.1em] text-ink">
                     Ready to generate
                   </p>
-                  <p className="mt-2 text-caption text-ash">
+                  <p className="mt-2 text-caption text-muted">
                     Day 1 of your chart is free to preview. Unlock the full week any time.
                   </p>
                 </div>
@@ -431,7 +431,7 @@ export function IntakeForm() {
             type="button"
             onClick={() => go((s) => s, -1)}
             disabled={state.step === 0}
-            className="font-display text-sm uppercase tracking-[0.14em] text-ash transition-colors hover:text-bone disabled:pointer-events-none disabled:opacity-30"
+            className="font-display text-sm uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink disabled:pointer-events-none disabled:opacity-30"
           >
             Back
           </button>
@@ -441,7 +441,7 @@ export function IntakeForm() {
               type="button"
               onClick={() => go((s) => s, 1)}
               disabled={!canAdvance(state)}
-              className="rounded-pill bg-blood px-8 py-3.5 font-display text-sm uppercase tracking-[0.16em] text-bone transition-colors hover:bg-blood-bright disabled:pointer-events-none disabled:opacity-40"
+              className="rounded-pill bg-blood px-8 py-3.5 font-display text-sm uppercase tracking-[0.16em] text-canvas transition-colors hover:bg-blood-bright disabled:pointer-events-none disabled:opacity-40"
             >
               Continue
             </button>
@@ -449,7 +449,7 @@ export function IntakeForm() {
             <button
               type="submit"
               disabled={pending}
-              className="rounded-pill bg-blood px-9 py-3.5 font-display text-sm uppercase tracking-[0.16em] text-bone transition-colors hover:bg-blood-bright disabled:pointer-events-none disabled:opacity-60"
+              className="rounded-pill bg-blood px-9 py-3.5 font-display text-sm uppercase tracking-[0.16em] text-canvas transition-colors hover:bg-blood-bright disabled:pointer-events-none disabled:opacity-60"
             >
               {pending ? "Building your chart…" : "Generate my chart"}
             </button>
@@ -461,12 +461,12 @@ export function IntakeForm() {
 }
 
 const inputClass =
-  "rounded-sm border border-hairline-hi bg-surface px-4 py-3 text-bone outline-none transition-colors focus:border-blood";
+  "rounded-sm border border-hairline-hi bg-surface px-4 py-3 text-ink outline-none transition-colors focus:border-blood";
 
 function Step({ legend, children }: { legend: string; children: React.ReactNode }) {
   return (
     <>
-      <h2 tabIndex={-1} className="font-display text-h4 text-bone outline-none">
+      <h2 tabIndex={-1} className="font-display text-h4 text-ink outline-none">
         {legend}
       </h2>
       <div className="mt-6">{children}</div>
@@ -498,7 +498,7 @@ function OptionCard({
         compact && "px-6 py-3",
         selected
           ? "border-blood bg-blood/10 text-blood-bright"
-          : "border-hairline-hi text-bone hover:border-bone/40",
+          : "border-hairline-hi text-ink hover:border-ink/40",
       )}
     >
       {children}

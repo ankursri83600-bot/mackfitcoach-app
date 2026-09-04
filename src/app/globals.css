@@ -1,33 +1,113 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   MackFitCoach design tokens
-   Palette is sampled from the brand badge: near-black ground, bone white
-   lettering, and the crimson of the "FIT" brushstroke as the single accent.
+   MackFitCoach design tokens — Soft UI light edition.
+
+   Modelled on the Soft UI Dashboard reference. Three habits carry that look,
+   and breaking any one of them is what makes a copy feel off:
+
+     1. COOL neutrals. The page is a blue-grey, cards are pure white, and even
+        the heading colour is slate-blue (#344767) rather than black.
+     2. Gradients, never flat accents. Chips, buttons and figures are filled
+        with a two-stop 310deg gradient — see `--grad-*` and the `grad-*`
+        utilities. A flat fill instantly reads as a different design system.
+     3. Shadow instead of border. Elevation is a wide, soft, low-alpha blur;
+        hairlines survive only inside inputs and tables.
+
+   Names are role-based, not colour-based, so the palette can move again
+   without touching a component: `canvas` is the page, `surface*` sit on it,
+   `ink`/`muted`/`muted-dim` are the three text tiers.
+
    Tailwind v4 is CSS-first — there is no tailwind.config.ts.
    ========================================================================= */
 @theme {
-  /* Surfaces */
-  --color-ink: #050505;
-  --color-surface: #0d0d0f;
-  --color-surface-2: #16161a;
-  --color-surface-3: #1f1f25;
-  --color-hairline: rgb(255 255 255 / 0.08);
-  --color-hairline-hi: rgb(255 255 255 / 0.18);
+  /* Surfaces — Soft UI: a cool grey page with pure-white cards floating on it.
+     The neutrals are blue-leaning, not warm; that cool cast is most of why the
+     reference reads as "software" rather than "brochure". */
+  --color-canvas: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f2f5;
+  --color-surface-3: #e9ecef;
+  /* Kept, but nearly invisible on purpose. Soft UI separates planes with
+     shadow alone; these remain only for inputs and table rules, where a real
+     edge still helps. */
+  --color-hairline: rgb(52 71 103 / 0.06);
+  --color-hairline-hi: rgb(52 71 103 / 0.13);
 
-  /* Brand red */
+  /* Brand red. `blood` is the only one safe as text on canvas (5.6:1);
+     `bright` is for fills and hovers, `deep` for text on a tinted panel. */
   --color-blood: #c4262b;
   --color-blood-bright: #e03135;
   --color-blood-deep: #7e1417;
+  --color-blood-tint: #fdf1f0;
 
-  /* Text tiers */
-  --color-bone: #f5f3f1;
-  --color-ash: #8a8a90;
-  --color-ash-dim: #5d5d64;
+  /* ---- Secondary accents -------------------------------------------------
+     Red alone is an alarm colour: it can shout, but it cannot say "protein"
+     versus "carbs" versus "rest day", so every chart and every section landed
+     in the same monochrome register. These four give the site a vocabulary.
 
-  /* Status */
-  --color-good: #3fb950;
-  --color-warn: #d29922;
+     They are one family, not four strangers: each sits near 60% lightness at
+     a similar chroma, so no single hue jumps out of a group. Every `-deep`
+     clears 4.5:1 on canvas for text; the base is for fills; `-tint` is the
+     wash for section grounds and badges.
+
+     Hues are assigned by MEANING and must stay put — ember is energy and
+     training, leaf is nutrition, ocean is data and progress, violet is the
+     premium tier. Swapping them mid-site is what makes a palette feel random. */
+  --color-ember: #e8873a;
+  --color-ember-deep: #9a4f12;
+  --color-ember-tint: #fef4ea;
+
+  --color-leaf: #2f9e6a;
+  --color-leaf-deep: #16643f;
+  --color-leaf-tint: #ecf9f2;
+
+  --color-ocean: #2f7fd4;
+  --color-ocean-deep: #16518f;
+  --color-ocean-tint: #eaf3fd;
+
+  --color-violet: #7c5cd6;
+  --color-violet-deep: #4a3193;
+  --color-violet-tint: #f2eefd;
+
+  /* Text tiers, straight off the reference: a slate-blue heading colour rather
+     than black, and a lighter slate for body. Both are AA on canvas (11.9:1
+     and 5.3:1). Pure black would fight the cool greys and look pasted on. */
+  --color-ink: #344767;
+  --color-muted: #67748e;
+  --color-muted-dim: #8f9bba;
+
+  /* Status — darkened from the dark-theme values, which were tuned for
+     luminous-on-black and turn illegible the moment the ground goes white. */
+  --color-good: #1a7f37;
+  --color-warn: #9a6700;
+
+  /* ---- Gradient pairs ----------------------------------------------------
+     The reference never fills anything with a flat accent — every chip,
+     button and highlight is a two-stop 310deg gradient. That single habit is
+     what makes it look designed rather than themed, so the pairs are tokens
+     and the `grad-*` utilities below are the only sanctioned way to use them.
+
+     `blood` keeps the brand: it is the existing crimson deepened at one end
+     rather than a new hue, so the badge still matches the site. */
+  --grad-blood: linear-gradient(310deg, #7e1417, #e03135);
+  --grad-primary: linear-gradient(310deg, #7928ca, #ff0080);
+  --grad-info: linear-gradient(310deg, #2152ff, #21d4fd);
+  --grad-success: linear-gradient(310deg, #17ad37, #98ec2d);
+  --grad-warning: linear-gradient(310deg, #f53939, #fbcf33);
+  --grad-dark: linear-gradient(310deg, #141727, #3a416f);
+
+  /* Elevation. Soft UI shadows are BIG, soft and nearly colourless — a wide
+     blur at very low alpha, no tight contact shadow. That is what makes cards
+     look like they are hovering over the page rather than stuck to it. */
+  --shadow-e1: 0 2px 6px -1px rgb(20 20 40 / 0.06), 0 1px 4px -1px rgb(20 20 40 / 0.04);
+  --shadow-e2: 0 8px 26px -4px rgb(20 20 40 / 0.10), 0 6px 12px -6px rgb(20 20 40 / 0.06);
+  --shadow-e3: 0 20px 44px -8px rgb(20 20 40 / 0.14), 0 12px 20px -10px rgb(20 20 40 / 0.08);
+  /* Coloured glows: a gradient chip casts light in its own hue. */
+  --shadow-accent: 0 6px 18px -4px rgb(224 49 53 / 0.42);
+  --shadow-primary: 0 6px 18px -4px rgb(153 40 178 / 0.42);
+  --shadow-info: 0 6px 18px -4px rgb(33 122 253 / 0.42);
+  --shadow-success: 0 6px 18px -4px rgb(60 190 50 / 0.42);
 
   /* Families — wired to the next/font CSS variables in layout.tsx */
   --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
@@ -52,9 +132,9 @@
   /* Radii */
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 2rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
   --radius-pill: 999px;
 
   /* Easing + duration */
@@ -76,28 +156,34 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* Tells the UA to render form controls, scrollbars and the overscroll
+       gutter light. Without it the browser keeps guessing from the OS and a
+       dark-mode visitor gets black scrollbars framing a white page. */
+    color-scheme: light;
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-bone);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   /* The custom cursor must never take the focus ring with it. */
   :focus-visible {
-    outline: 2px solid var(--color-blood-bright);
+    /* `blood` not `blood-bright`: the bright red is tuned to glow against
+       black and goes muddy on paper. */
+    outline: 2px solid var(--color-blood);
     outline-offset: 3px;
     border-radius: var(--radius-xs);
   }
 
   ::selection {
     background-color: var(--color-blood);
-    color: var(--color-bone);
+    /* Canvas, not ink — ink on blood is dark-on-dark and unreadable. */
+    color: var(--color-canvas);
   }
 
   h1,
@@ -115,9 +201,110 @@
 @utility text-display-gradient {
   background-image: linear-gradient(
     100deg,
-    var(--color-bone) 0%,
-    var(--color-bone) 45%,
+    var(--color-ink) 0%,
+    var(--color-ink) 45%,
     var(--color-blood-bright) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============================================================================
+   Colour utilities.
+
+   A light page needs somewhere for colour to LIVE. On black, an accent glowed
+   against the ground for free; on paper it has to be given surface area, or
+   the site reads as grey text with occasional red bits — which is exactly the
+   "boring" failure mode. These three give it that surface area without
+   touching contrast on any text.
+   ========================================================================= */
+
+/* The gradient fills. `grad-*` paints the box; `grad-*-text` paints the
+   glyphs. Text variants need a plain `color` fallback set by the caller,
+   because `background-clip: text` leaves transparent text if the gradient
+   fails to paint. */
+@utility grad-blood {
+  background-image: var(--grad-blood);
+}
+@utility grad-primary {
+  background-image: var(--grad-primary);
+}
+@utility grad-info {
+  background-image: var(--grad-info);
+}
+@utility grad-success {
+  background-image: var(--grad-success);
+}
+@utility grad-warning {
+  background-image: var(--grad-warning);
+}
+@utility grad-dark {
+  background-image: var(--grad-dark);
+}
+
+@utility grad-blood-text {
+  background-image: var(--grad-blood);
+  background-clip: text;
+  color: transparent;
+}
+@utility grad-primary-text {
+  background-image: var(--grad-primary);
+  background-clip: text;
+  color: transparent;
+}
+@utility grad-info-text {
+  background-image: var(--grad-info);
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated gradient. The 300% background is what makes the sweep possible —
+   the element only ever shows a third of it, and the keyframe slides which
+   third. Pure compositor work, no repaint. */
+@utility grad-animate {
+  background-size: 300% 300%;
+  animation: grad-drift 9s ease infinite;
+}
+
+@keyframes grad-drift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Soft multi-hue wash for section grounds. Four very low-alpha radials, so
+   they blend into paper instead of banding like a linear gradient would. */
+@utility mesh-warm {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(at 10% 6%, rgb(255 0 128 / 0.10) 0px, transparent 52%),
+    radial-gradient(at 88% 2%, rgb(121 40 202 / 0.10) 0px, transparent 48%),
+    radial-gradient(at 78% 94%, rgb(33 212 253 / 0.12) 0px, transparent 52%),
+    radial-gradient(at 16% 98%, rgb(251 207 51 / 0.11) 0px, transparent 48%);
+}
+
+@utility mesh-cool {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(at 84% 8%, rgb(33 82 255 / 0.11) 0px, transparent 52%),
+    radial-gradient(at 8% 26%, rgb(121 40 202 / 0.10) 0px, transparent 48%),
+    radial-gradient(at 52% 100%, rgb(23 173 55 / 0.09) 0px, transparent 56%);
+}
+
+/* Headline sweep across the full accent family. Decorative only — it is always
+   applied to text that also exists as a plain-colour fallback underneath. */
+@utility text-spectrum {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-ink) 0%,
+    var(--color-ink) 30%,
+    var(--color-blood) 58%,
+    var(--color-ember) 78%,
+    var(--color-violet) 100%
   );
   background-clip: text;
   color: transparent;
@@ -132,7 +319,7 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.035;
+  opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 

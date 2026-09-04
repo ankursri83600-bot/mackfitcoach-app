@@ -50,21 +50,21 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
       <Container className="max-w-2xl">
         <Reveal>
           <Eyebrow>Checkout</Eyebrow>
-          <h1 className="mt-3 font-display text-h2 text-bone">{tier.name}</h1>
+          <h1 className="mt-3 font-display text-h2 text-ink">{tier.name}</h1>
         </Reveal>
 
         <Reveal delay={0.1}>
           <Card className="mt-8">
             <div className="flex items-baseline justify-between gap-4">
-              <p className="text-ash">{tier.tagline}</p>
-              <p className="font-display text-h3 tabular-nums text-bone">
+              <p className="text-muted">{tier.tagline}</p>
+              <p className="font-display text-h3 tabular-nums text-ink">
                 {formatINR(tier.pricePaise)}
               </p>
             </div>
 
             <ul className="mt-6 space-y-3">
               {tier.features.map((f) => (
-                <li key={f} className="flex gap-3 text-caption text-ash">
+                <li key={f} className="flex gap-3 text-caption text-muted">
                   <Check className="mt-0.5 size-3.5 shrink-0 text-blood-bright" aria-hidden="true" />
                   {f}
                 </li>
@@ -77,7 +77,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                   {!user ? (
                     <FormAlert tone="info">
                       You will be asked to{" "}
-                      <Link href={`/login?next=/checkout/${tier.slug}`} className="text-bone underline">
+                      <Link href={`/login?next=/checkout/${tier.slug}`} className="text-ink underline">
                         sign in
                       </Link>{" "}
                       before paying, so the plan stays attached to your account.
@@ -95,14 +95,14 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                   <FormAlert tone="info">
                     {rzp.keyIdPresent ? (
                       <>
-                        <strong className="text-bone">
+                        <strong className="text-ink">
                           Almost there — your {rzp.mode} key ID is set.
                         </strong>{" "}
                         Payments still need{" "}
                         {rzp.missing
                           .filter((v) => v !== "RAZORPAY_WEBHOOK_SECRET")
                           .map((v) => (
-                            <code key={v} className="text-bone">
+                            <code key={v} className="text-ink">
                               {v}
                             </code>
                           ))
@@ -110,15 +110,15 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
                             (acc, node, i) => (i === 0 ? [node] : [...acc, " and ", node]),
                             [],
                           )}{" "}
-                          in <code className="text-bone">.env.local</code>. Razorpay signs every
+                          in <code className="text-ink">.env.local</code>. Razorpay signs every
                         request with the secret, so the server cannot create an order without it.
                       </>
                     ) : (
                       <>
-                        <strong className="text-bone">Payments are not connected yet.</strong> Add{" "}
-                        <code className="text-bone">RAZORPAY_KEY_ID</code> and{" "}
-                        <code className="text-bone">RAZORPAY_KEY_SECRET</code> to{" "}
-                        <code className="text-bone">.env.local</code>.
+                        <strong className="text-ink">Payments are not connected yet.</strong> Add{" "}
+                        <code className="text-ink">RAZORPAY_KEY_ID</code> and{" "}
+                        <code className="text-ink">RAZORPAY_KEY_SECRET</code> to{" "}
+                        <code className="text-ink">.env.local</code>.
                       </>
                     )}{" "}
                     The button below only demonstrates the unlock flow — no money moves.
@@ -132,7 +132,7 @@ export default async function CheckoutPage({ params, searchParams }: PageProps) 
               )}
             </div>
 
-            <p className="mt-6 text-[0.7rem] leading-relaxed text-ash-dim">
+            <p className="mt-6 text-[0.7rem] leading-relaxed text-muted-dim">
               Prices are in Indian rupees and include all taxes. See our{" "}
               <Link href="/refund-policy" className="underline">
                 refund policy

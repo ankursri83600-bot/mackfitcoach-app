@@ -141,7 +141,7 @@ export function RazorpayCheckout({
         {busy ? "Opening checkout…" : ready ? `Pay for ${tierName}` : "Loading…"}
       </Button>
 
-      <p className="mt-3 text-center text-[0.7rem] text-ash-dim">
+      <p className="mt-3 text-center text-[0.7rem] text-muted-dim">
         Secured by Razorpay. UPI, cards, net banking and wallets accepted.
       </p>
     </div>

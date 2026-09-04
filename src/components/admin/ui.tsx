@@ -22,8 +22,8 @@ export function PageHeading({
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 className="font-display text-h3 leading-none text-bone">{title}</h1>
-        {subtitle ? <p className="mt-2 text-caption text-ash">{subtitle}</p> : null}
+        <h1 className="font-display text-h3 leading-none text-ink">{title}</h1>
+        {subtitle ? <p className="mt-2 text-caption text-muted">{subtitle}</p> : null}
       </div>
       {action}
     </div>
@@ -36,11 +36,11 @@ export function DemoBanner({ children }: { children?: ReactNode }) {
       <p className="font-display text-[0.7rem] uppercase tracking-[0.18em] text-warn">
         Sample data
       </p>
-      <p className="mt-2 text-caption leading-relaxed text-ash">
+      <p className="mt-2 text-caption leading-relaxed text-muted">
         {children ?? (
           <>
             Supabase is not connected, so these rows are illustrative samples — not real customers.
-            Add your keys to <code className="text-bone">.env.local</code> and every screen switches
+            Add your keys to <code className="text-ink">.env.local</code> and every screen switches
             to live data. Sign-in is also enforced from that point on.
           </>
         )}
@@ -71,9 +71,9 @@ export function StatTile({
   return (
     <div className="relative overflow-hidden rounded-md border border-hairline bg-surface p-5">
       <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-0.5", stripe)} />
-      <p className="text-[0.7rem] uppercase tracking-[0.14em] text-ash">{label}</p>
-      <p className="mt-2 font-display text-h3 leading-none tabular-nums text-bone">{value}</p>
-      {hint ? <p className="mt-2 text-[0.7rem] text-ash-dim">{hint}</p> : null}
+      <p className="text-[0.7rem] uppercase tracking-[0.14em] text-muted">{label}</p>
+      <p className="mt-2 font-display text-h3 leading-none tabular-nums text-ink">{value}</p>
+      {hint ? <p className="mt-2 text-[0.7rem] text-muted-dim">{hint}</p> : null}
     </div>
   );
 }
@@ -81,12 +81,12 @@ export function StatTile({
 const STATUS_TONES: Record<string, string> = {
   // Money
   paid: "border-good/50 bg-good/10 text-good",
-  created: "border-hairline-hi bg-surface-2 text-ash",
+  created: "border-hairline-hi bg-surface-2 text-muted",
   attempted: "border-warn/50 bg-warn/10 text-warn",
   failed: "border-blood/60 bg-blood/10 text-blood-bright",
   mismatch: "border-blood/60 bg-blood/15 text-blood-bright",
   refunded: "border-warn/50 bg-warn/10 text-warn",
-  cancelled: "border-hairline-hi bg-surface-2 text-ash-dim",
+  cancelled: "border-hairline-hi bg-surface-2 text-muted-dim",
   // Bookings
   requested: "border-warn/50 bg-warn/10 text-warn",
   confirmed: "border-good/50 bg-good/10 text-good",
@@ -94,12 +94,12 @@ const STATUS_TONES: Record<string, string> = {
   // Intakes
   submitted: "border-warn/50 bg-warn/10 text-warn",
   plan_generated: "border-good/50 bg-good/10 text-good",
-  archived: "border-hairline-hi bg-surface-2 text-ash-dim",
+  archived: "border-hairline-hi bg-surface-2 text-muted-dim",
   // Roles
   admin: "border-blood/60 bg-blood/10 text-blood-bright",
   dietician: "border-good/50 bg-good/10 text-good",
   trainer: "border-good/40 bg-good/5 text-good",
-  user: "border-hairline-hi bg-surface-2 text-ash",
+  user: "border-hairline-hi bg-surface-2 text-muted",
 };
 
 export function StatusPill({ value }: { value: string }) {
@@ -107,7 +107,7 @@ export function StatusPill({ value }: { value: string }) {
     <span
       className={cn(
         "inline-flex whitespace-nowrap rounded-pill border px-2.5 py-1 font-display text-[0.6rem] uppercase tracking-[0.14em]",
-        STATUS_TONES[value] ?? "border-hairline-hi bg-surface-2 text-ash",
+        STATUS_TONES[value] ?? "border-hairline-hi bg-surface-2 text-muted",
       )}
     >
       {value.replace(/_/g, " ")}
@@ -134,7 +134,7 @@ export function TableShell({
               <th
                 key={h}
                 scope="col"
-                className="whitespace-nowrap px-4 py-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-ash"
+                className="whitespace-nowrap px-4 py-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-muted"
               >
                 {h}
               </th>
@@ -171,7 +171,7 @@ export function Cell({
       className={cn(
         "px-4 py-3 text-caption",
         numeric && "font-mono tabular-nums",
-        muted ? "text-ash" : "text-bone",
+        muted ? "text-muted" : "text-ink",
         className,
       )}
     >
@@ -183,7 +183,7 @@ export function Cell({
 export function EmptyState({ children }: { children: ReactNode }) {
   return (
     <div className="rounded-md border border-dashed border-hairline-hi bg-surface/50 px-6 py-12 text-center">
-      <p className="text-caption text-ash">{children}</p>
+      <p className="text-caption text-muted">{children}</p>
     </div>
   );
 }
@@ -194,8 +194,8 @@ export function DetailGrid({ items }: { items: { label: string; value: ReactNode
     <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <div key={item.label}>
-          <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-ash-dim">{item.label}</dt>
-          <dd className="mt-1 text-caption text-bone">{item.value}</dd>
+          <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">{item.label}</dt>
+          <dd className="mt-1 text-caption text-ink">{item.value}</dd>
         </div>
       ))}
     </dl>
@@ -214,7 +214,7 @@ export function SectionCard({
   return (
     <section className="rounded-md border border-hairline bg-surface">
       <header className="flex items-center justify-between gap-4 border-b border-hairline px-5 py-4">
-        <h2 className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-bone">
+        <h2 className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-ink">
           {title}
         </h2>
         {action}

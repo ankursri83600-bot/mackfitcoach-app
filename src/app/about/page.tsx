@@ -18,7 +18,7 @@ export default function AboutPage() {
         <Reveal>
           <div className="relative aspect-4/5 overflow-hidden rounded-md bg-surface">
             <Image
-              src="/placeholder/coach-mack.jpg"
+              src="/coach/coach-mack.jpg"
               alt="Coach Mack"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -34,11 +34,11 @@ export default function AboutPage() {
               as="h1"
               text="COACHING THAT FITS YOUR KITCHEN."
               onScroll
-              className="mt-5 font-display text-h2 leading-display text-bone"
+              className="mt-5 font-display text-h2 leading-display text-ink"
             />
           </Reveal>
 
-          <Reveal delay={0.1} as="div" className="mt-6 flex flex-col gap-4 text-ash">
+          <Reveal delay={0.1} as="div" className="mt-6 flex flex-col gap-4 text-muted">
             <p>
               Most diet plans fail for one boring reason: they ask people to eat food they do not
               cook, cannot afford, or do not enjoy. A plan built around chicken breast and quinoa is

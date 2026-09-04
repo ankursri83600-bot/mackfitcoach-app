@@ -38,16 +38,16 @@ export default async function AdminUsersPage() {
       </section>
 
       <div className="mb-8 mt-8 rounded-md border border-hairline bg-surface p-5">
-        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-bone">
+        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-ink">
           Changing someone&apos;s role
         </p>
-        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-ash">
+        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-muted">
           Roles are deliberately not editable from this screen. A database trigger silently reverts
           any role change that does not come from an admin, so privilege escalation is blocked at the
           data layer rather than trusted to the UI. To promote someone, run this in the Supabase SQL
           editor:
         </p>
-        <pre className="mt-4 overflow-x-auto rounded-sm border border-hairline-hi bg-ink px-4 py-3 font-mono text-[0.7rem] text-ash">
+        <pre className="mt-4 overflow-x-auto rounded-sm border border-hairline-hi bg-canvas px-4 py-3 font-mono text-[0.7rem] text-muted">
           <code>{`update profiles set role = 'dietician' where id = '<user-uuid>';`}</code>
         </pre>
       </div>

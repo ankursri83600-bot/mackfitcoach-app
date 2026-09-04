@@ -14,7 +14,7 @@ export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: bool
       )}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h3 className="font-display text-h4 text-bone print:text-black">
+        <h3 className="font-display text-h4 text-ink print:text-black">
           {day.label}
           {day.isNonVegDay ? (
             <Badge tone="blood" className="ml-3 align-middle">
@@ -22,7 +22,7 @@ export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: bool
             </Badge>
           ) : null}
         </h3>
-        <p className="font-mono text-caption tabular-nums text-ash print:text-black/60">
+        <p className="font-mono text-caption tabular-nums text-muted print:text-black/60">
           {day.totals.kcal} kcal · P{day.totals.protein}g · C{day.totals.carbs}g · F{day.totals.fat}g
         </p>
       </div>
@@ -31,10 +31,10 @@ export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: bool
         {day.meals.map((meal) => (
           <div key={meal.slotId} className="py-4 first:pt-0 last:pb-0">
             <div className="flex items-baseline justify-between gap-3">
-              <p className="font-display text-sm uppercase tracking-[0.08em] text-bone print:text-black">
-                {meal.label} <span className="text-ash">· {meal.timeHint}</span>
+              <p className="font-display text-sm uppercase tracking-[0.08em] text-ink print:text-black">
+                {meal.label} <span className="text-muted">· {meal.timeHint}</span>
               </p>
-              <p className="flex items-center gap-1 font-mono text-caption tabular-nums text-ash print:text-black/60">
+              <p className="flex items-center gap-1 font-mono text-caption tabular-nums text-muted print:text-black/60">
                 <Flame className="size-3" aria-hidden="true" />
                 {meal.totals.kcal} kcal
               </p>
@@ -43,10 +43,10 @@ export function PlanDayCard({ day, printMode }: { day: PlanDay; printMode?: bool
               {meal.items.map((item) => (
                 <li
                   key={item.foodId}
-                  className="flex items-baseline justify-between gap-4 text-caption text-ash print:text-black/80"
+                  className="flex items-baseline justify-between gap-4 text-caption text-muted print:text-black/80"
                 >
                   <span>
-                    {item.name} <span className="text-ash-dim print:text-black/50">— {item.measure}</span>
+                    {item.name} <span className="text-muted-dim print:text-black/50">— {item.measure}</span>
                   </span>
                   <span className="shrink-0 font-mono tabular-nums">{item.kcal} kcal</span>
                 </li>
@@ -66,9 +66,9 @@ export function LockedDayCard({ day }: { day: Pick<PlanDay, "label" | "dayIndex"
         <div className="h-full w-full bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.02)_0px,rgba(255,255,255,0.02)_2px,transparent_2px,transparent_10px)]" />
       </div>
       <div className="relative flex flex-col items-center justify-center gap-3 py-10 text-center">
-        <Lock className="size-5 text-ash" aria-hidden="true" />
-        <p className="font-display text-h4 text-bone">{day.label}</p>
-        <p className="text-caption text-ash">Unlock the full week to see this day's meals.</p>
+        <Lock className="size-5 text-muted" aria-hidden="true" />
+        <p className="font-display text-h4 text-ink">{day.label}</p>
+        <p className="text-caption text-muted">Unlock the full week to see this day's meals.</p>
       </div>
     </div>
   );

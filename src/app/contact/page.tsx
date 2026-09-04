@@ -17,8 +17,8 @@ export default function ContactPage() {
       <Container className="max-w-2xl">
         <Reveal>
           <Eyebrow>Contact</Eyebrow>
-          <h1 className="mt-4 font-display text-h2 text-bone">TALK TO US</h1>
-          <p className="mt-4 text-ash">
+          <h1 className="mt-4 font-display text-h2 text-ink">TALK TO US</h1>
+          <p className="mt-4 text-muted">
             Fastest reply is WhatsApp. You will get a human, not a bot.
           </p>
         </Reveal>
@@ -33,8 +33,8 @@ export default function ContactPage() {
             >
               <MessageCircle className="size-5 text-good" aria-hidden="true" />
               <span>
-                <span className="block text-caption text-bone">WhatsApp</span>
-                <span className="block text-[0.7rem] text-ash">
+                <span className="block text-caption text-ink">WhatsApp</span>
+                <span className="block text-[0.7rem] text-muted">
                   {siteConfig.contact.phoneLabel}
                 </span>
               </span>
@@ -46,8 +46,8 @@ export default function ContactPage() {
             >
               <Phone className="size-5 text-blood" aria-hidden="true" />
               <span>
-                <span className="block text-caption text-bone">Phone</span>
-                <span className="block text-[0.7rem] text-ash">
+                <span className="block text-caption text-ink">Phone</span>
+                <span className="block text-[0.7rem] text-muted">
                   {siteConfig.contact.phoneLabel}
                 </span>
               </span>
@@ -59,8 +59,8 @@ export default function ContactPage() {
             >
               <Mail className="size-5 text-blood" aria-hidden="true" />
               <span>
-                <span className="block text-caption text-bone">Email</span>
-                <span className="block text-[0.7rem] text-ash">{siteConfig.contact.email}</span>
+                <span className="block text-caption text-ink">Email</span>
+                <span className="block text-[0.7rem] text-muted">{siteConfig.contact.email}</span>
               </span>
             </a>
           </Card>

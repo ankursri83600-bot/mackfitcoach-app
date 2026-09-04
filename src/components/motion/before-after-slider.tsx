@@ -137,10 +137,10 @@ export function BeforeAfterSlider({
       </div>
 
       {/* Corner tags so it's obvious which side is which. */}
-      <span className="pointer-events-none absolute left-3 top-3 rounded-xs bg-ink/75 px-2 py-1 font-display text-[11px] tracking-[0.18em] text-bone backdrop-blur-sm">
+      <span className="pointer-events-none absolute left-3 top-3 rounded-xs bg-canvas/75 px-2 py-1 font-display text-[11px] tracking-[0.18em] text-ink backdrop-blur-sm">
         BEFORE
       </span>
-      <span className="pointer-events-none absolute right-3 top-3 rounded-xs bg-blood/85 px-2 py-1 font-display text-[11px] tracking-[0.18em] text-bone backdrop-blur-sm">
+      <span className="pointer-events-none absolute right-3 top-3 rounded-xs bg-blood/85 px-2 py-1 font-display text-[11px] tracking-[0.18em] text-canvas backdrop-blur-sm">
         AFTER
       </span>
 
@@ -159,7 +159,7 @@ export function BeforeAfterSlider({
         aria-valuenow={Math.round(pct)}
         aria-valuetext={`${Math.round(pct)}% before`}
         onKeyDown={onKeyDown}
-        className="absolute top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize place-items-center rounded-pill bg-blood text-bone shadow-[0_0_0_1px_rgba(245,243,241,0.25),0_8px_30px_-6px_rgba(196,38,43,0.7)]"
+        className="absolute top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize place-items-center rounded-pill bg-blood text-canvas shadow-[0_0_0_1px_rgba(245,243,241,0.25),0_8px_30px_-6px_rgba(196,38,43,0.7)]"
         style={{ left: `${pct}%` }}
       >
         <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true" fill="currentColor">
@@ -168,7 +168,7 @@ export function BeforeAfterSlider({
       </div>
 
       {label ? (
-        <figcaption className="pointer-events-none absolute bottom-3 left-3 right-3 text-caption text-bone/90">
+        <figcaption className="pointer-events-none absolute bottom-3 left-3 right-3 text-caption text-ink/90">
           {label}
         </figcaption>
       ) : null}

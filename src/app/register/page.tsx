@@ -65,8 +65,8 @@ export default function RegisterPage() {
     <Section className="min-h-[70vh]">
       <Container className="max-w-md">
         <Eyebrow>Account</Eyebrow>
-        <h1 className="mt-3 font-display text-h2 text-bone">CREATE ACCOUNT</h1>
-        <p className="mt-3 text-caption text-ash">
+        <h1 className="mt-3 font-display text-h2 text-ink">CREATE ACCOUNT</h1>
+        <p className="mt-3 text-caption text-muted">
           An account keeps your charts, orders and bookings in one place.
         </p>
 
@@ -125,7 +125,7 @@ export default function RegisterPage() {
                 {busy ? "Creating account…" : "Create account"}
               </Button>
 
-              <p className="text-caption text-ash">
+              <p className="text-caption text-muted">
                 Already have one?{" "}
                 <Link href="/login" className="text-blood-bright hover:underline">
                   Log in

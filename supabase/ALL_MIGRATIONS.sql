@@ -3,7 +3,7 @@
 --
 -- HOW TO APPLY
 --   1. Open the Supabase SQL editor:
---      https://supabase.com/dashboard/project/qsahrrduyngkxhhyiebm/sql/new
+--      https://supabase.com/dashboard/project/flamddoyfelpekuqpgus/sql/new
 --   2. Paste this entire file and press Run.
 --
 -- Run it here rather than through the API: it creates a trigger on auth.users,

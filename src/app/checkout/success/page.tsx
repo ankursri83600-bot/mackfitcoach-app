@@ -43,7 +43,7 @@ export default async function CheckoutSuccessPage({
         <Reveal>
           <CheckCircle2 className="mx-auto size-12 text-good" aria-hidden="true" />
           <Eyebrow className="mt-6 justify-center">Payment received</Eyebrow>
-          <h1 className="mt-4 font-display text-h2 text-bone">YOU&apos;RE IN</h1>
+          <h1 className="mt-4 font-display text-h2 text-ink">YOU&apos;RE IN</h1>
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -51,22 +51,22 @@ export default async function CheckoutSuccessPage({
             {order ? (
               <dl className="space-y-3 text-caption">
                 <div className="flex justify-between">
-                  <dt className="text-ash">Plan</dt>
-                  <dd className="text-bone">{order.tier_name_snapshot}</dd>
+                  <dt className="text-muted">Plan</dt>
+                  <dd className="text-ink">{order.tier_name_snapshot}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-ash">Amount</dt>
-                  <dd className="font-mono tabular-nums text-bone">
+                  <dt className="text-muted">Amount</dt>
+                  <dd className="font-mono tabular-nums text-ink">
                     {formatINR(order.amount_paise)}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-ash">Status</dt>
+                  <dt className="text-muted">Status</dt>
                   <dd className="text-good uppercase">{order.status}</dd>
                 </div>
               </dl>
             ) : (
-              <p className="text-caption text-ash">
+              <p className="text-caption text-muted">
                 Your payment is confirmed. If your plan has not unlocked yet, give it a few seconds
                 and refresh — we finalise every payment against Razorpay&apos;s webhook.
               </p>

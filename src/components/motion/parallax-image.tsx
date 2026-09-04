@@ -100,10 +100,29 @@ export function ParallaxImage({
         />
       </div>
       {scrim ? (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/70"
-        />
+        /**
+         * Two scrims, not one.
+         *
+         * On the dark theme a single top-to-bottom wash worked because the
+         * scrim colour and the page were both near-black — it just deepened
+         * the photo. Inverted, that same wash is WHITE over a dark gym shot,
+         * which greys the picture out everywhere and protects the text
+         * nowhere.
+         *
+         * So: a horizontal pass that stays opaque under the headline column
+         * and clears by mid-frame, plus a soft vertical pass to blend the
+         * photo into the section below. The picture survives on the right.
+         */
+        <>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/85 to-transparent md:to-canvas/5"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-canvas/30"
+          />
+        </>
       ) : null}
     </div>
   );

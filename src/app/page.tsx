@@ -26,7 +26,7 @@ import { FAQS, HOW_IT_WORKS, MARQUEE_ITEMS, PLAN_TIERS } from "@/lib/data/conten
 import { listCoaches } from "@/lib/data/coaches";
 import { listTransformations } from "@/lib/data/transformations";
 import { siteConfig } from "@/lib/site-config";
-import { formatINR } from "@/lib/utils";
+import { cn, formatINR } from "@/lib/utils";
 
 export default async function HomePage() {
   // Live data when Supabase is configured, labelled samples otherwise.
@@ -44,6 +44,7 @@ export default async function HomePage() {
       <HowItWorks />
       <Pricing />
       <Coaches items={coaches} />
+      <InsideTheGym />
       <Faq />
       <FinalCta />
     </>
@@ -54,7 +55,7 @@ function Hero() {
   return (
     <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden">
       <ParallaxImage
-        src="/placeholder/hero.jpg"
+        src="/coach/hero.jpg"
         alt=""
         priority
         speed={0.12}
@@ -83,11 +84,11 @@ function Hero() {
           by="char"
           delay={0.15}
           className="mt-6 font-display text-mega leading-mega tracking-mega"
-          lineClassName="text-bone last:text-display-gradient"
+          lineClassName="text-ink last:text-display-gradient"
         />
 
         <FadeUp delay={0.5} className="mt-8 max-w-xl">
-          <p className="text-lead text-ash">
+          <p className="text-lead text-muted">
             A 7-day Indian diet chart built from your own numbers — weight, height, age, activity
             and goal. Choose vegan, vegetarian, or exactly which days you eat non-veg. Then talk to
             a real dietician.
@@ -97,7 +98,7 @@ function Hero() {
         <FadeUp delay={0.62} className="mt-10 flex flex-wrap items-center gap-4">
           <MagneticButton
             href="/diet"
-            className="inline-flex items-center gap-2 rounded-pill bg-blood px-8 py-4 font-display text-sm tracking-[0.16em] uppercase text-bone transition-colors duration-200 hover:bg-blood-bright"
+            className="inline-flex items-center gap-2 rounded-pill bg-blood px-8 py-4 font-display text-sm tracking-[0.16em] uppercase text-canvas transition-colors duration-200 hover:bg-blood-bright"
           >
             Get my free chart
             <ArrowRight className="size-4" aria-hidden="true" />
@@ -110,7 +111,7 @@ function Hero() {
         <FadeUp delay={0.75} className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3">
           {["Day 1 free, no card", "Built in 90 seconds", "Indian meals, katori portions"].map(
             (item) => (
-              <span key={item} className="inline-flex items-center gap-2 text-caption text-ash">
+              <span key={item} className="inline-flex items-center gap-2 text-caption text-muted">
                 <Check className="size-3.5 text-blood-bright" aria-hidden="true" />
                 {item}
               </span>
@@ -128,7 +129,7 @@ function CredentialsMarquee() {
       <Marquee duration={36}>
         {MARQUEE_ITEMS.map((item) => (
           <span key={item} className="flex items-center">
-            <span className="font-display text-sm tracking-[0.24em] text-bone/70">{item}</span>
+            <span className="font-display text-sm tracking-[0.24em] text-ink/70">{item}</span>
             <MarqueeDot />
           </span>
         ))}
@@ -137,21 +138,48 @@ function CredentialsMarquee() {
   );
 }
 
+/**
+ * One accent per stat, in a fixed order.
+ *
+ * Four identical near-black numerals gave the eye nothing to hold onto and
+ * made the row read as a table. Colour here is not decoration: it is what
+ * separates four unrelated facts that happen to share a shape. Positional,
+ * not semantic, so it stays stable as the copy changes.
+ */
+const STAT_ACCENTS = [
+  { text: "text-blood", ring: "ring-blood/20", tint: "bg-blood-tint" },
+  { text: "text-ember-deep", ring: "ring-ember/25", tint: "bg-ember-tint" },
+  { text: "text-leaf-deep", ring: "ring-leaf/25", tint: "bg-leaf-tint" },
+  { text: "text-ocean-deep", ring: "ring-ocean/25", tint: "bg-ocean-tint" },
+] as const;
+
 function Stats() {
   return (
-    <Section className="border-b border-hairline">
+    <Section className="mesh-warm border-b border-hairline">
       <Container>
-        <Reveal stagger={0.09} as="ul" className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
-          {siteConfig.stats.map((stat) => (
-            <RevealItem as="li" key={stat.label}>
-              <p className="font-display text-h2 leading-none text-bone">
-                <CountUp to={stat.value} suffix={stat.suffix} />
-              </p>
-              <p className="mt-3 text-caption tracking-[0.14em] uppercase text-ash">
-                {stat.label}
-              </p>
-            </RevealItem>
-          ))}
+        <Reveal stagger={0.09} as="ul" className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+          {siteConfig.stats.map((stat, i) => {
+            const accent = STAT_ACCENTS[i % STAT_ACCENTS.length];
+            return (
+              <RevealItem as="li" key={stat.label}>
+                <div
+                  className={cn(
+                    "h-full rounded-lg p-6 ring-1 ring-inset backdrop-blur-[2px]",
+                    "transition-transform duration-500 ease-out-quart hover:-translate-y-1 motion-reduce:hover:translate-y-0",
+                    accent.tint,
+                    accent.ring,
+                  )}
+                >
+                  <p className={cn("font-display text-h2 leading-none", accent.text)}>
+                    <CountUp to={stat.value} suffix={stat.suffix} />
+                  </p>
+                  <p className="mt-3 text-caption tracking-[0.14em] uppercase text-muted">
+                    {stat.label}
+                  </p>
+                </div>
+              </RevealItem>
+            );
+          })}
         </Reveal>
       </Container>
     </Section>
@@ -172,7 +200,7 @@ function Transformations({ items }: { items: Awaited<ReturnType<typeof listTrans
               text={["THE PROOF IS", "IN THE MIRROR."]}
               onScroll
               className="mt-5 font-display text-h2 leading-display"
-              lineClassName="text-bone"
+              lineClassName="text-ink"
             />
           </div>
           <Reveal delay={0.1}>
@@ -196,13 +224,13 @@ function Transformations({ items }: { items: Awaited<ReturnType<typeof listTrans
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
               <div className="mt-4 flex items-baseline justify-between gap-3">
-                <p className="font-display text-lg text-bone">{t.displayName}</p>
+                <p className="font-display text-lg text-ink">{t.displayName}</p>
                 <p className="font-mono text-caption tabular-nums text-blood-bright">
                   {t.endKg < t.startKg ? "−" : "+"}
                   {Math.abs(t.startKg - t.endKg).toFixed(0)} kg
                 </p>
               </div>
-              <p className="mt-1 text-caption text-ash">
+              <p className="mt-1 text-caption text-muted">
                 {t.goalLabel} · {t.weeks} weeks
               </p>
             </RevealItem>
@@ -210,7 +238,7 @@ function Transformations({ items }: { items: Awaited<ReturnType<typeof listTrans
         </Reveal>
 
         <Reveal delay={0.15}>
-          <p className="mt-8 text-caption text-ash-dim">
+          <p className="mt-8 text-caption text-muted-dim">
             Drag the handle — or use the arrow keys — to compare. Images shown are samples
             pending client photo consent.
           </p>
@@ -231,17 +259,28 @@ function HowItWorks() {
           as="h2"
           text="FOUR STEPS. NO GUESSWORK."
           onScroll
-          className="mt-5 max-w-3xl font-display text-h2 leading-display text-bone"
+          className="mt-5 max-w-3xl font-display text-h2 leading-display text-ink"
         />
 
         <Reveal stagger={0.1} as="ul" className="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {HOW_IT_WORKS.map((item) => (
-            <RevealItem as="li" key={item.step} className="border-t border-hairline pt-6">
-              <span className="font-display text-h3 text-blood">{item.step}</span>
-              <h3 className="mt-3 font-display text-h4 text-bone">{item.title}</h3>
-              <p className="mt-3 text-caption leading-relaxed text-ash">{item.body}</p>
-            </RevealItem>
-          ))}
+          {HOW_IT_WORKS.map((item, i) => {
+            // The rule above each step carries the accent too, so the colour
+            // reads as a sequence marker rather than four random highlights.
+            const step = [
+              { num: "text-blood", rule: "bg-blood/45" },
+              { num: "text-ember-deep", rule: "bg-ember/55" },
+              { num: "text-leaf-deep", rule: "bg-leaf/55" },
+              { num: "text-ocean-deep", rule: "bg-ocean/55" },
+            ][i % 4];
+            return (
+              <RevealItem as="li" key={item.step} className="group pt-6">
+                <span aria-hidden="true" className={cn("mb-6 block h-0.5 w-full origin-left rounded-pill transition-transform duration-500 ease-out-quart group-hover:scale-x-105", step.rule)} />
+                <span className={cn("font-display text-h3", step.num)}>{item.step}</span>
+                <h3 className="mt-3 font-display text-h4 text-ink">{item.title}</h3>
+                <p className="mt-3 text-caption leading-relaxed text-muted">{item.body}</p>
+              </RevealItem>
+            );
+          })}
         </Reveal>
       </Container>
     </Section>
@@ -260,10 +299,10 @@ function Pricing() {
             as="h2"
             text={["PAY ONCE.", "EAT RIGHT FOR MONTHS."]}
             onScroll
-            className="mt-5 font-display text-h2 leading-display text-bone"
+            className="mt-5 font-display text-h2 leading-display text-ink"
           />
           <Reveal delay={0.1}>
-            <p className="mt-5 text-ash">
+            <p className="mt-5 text-muted">
               Day one of your chart is always free. Unlock the rest when you are ready.
             </p>
           </Reveal>
@@ -285,27 +324,27 @@ function Pricing() {
                   </Badge>
                 ) : null}
 
-                <h3 className="font-display text-h4 text-bone">{tier.name}</h3>
-                <p className="mt-1 text-caption text-ash">{tier.tagline}</p>
+                <h3 className="font-display text-h4 text-ink">{tier.name}</h3>
+                <p className="mt-1 text-caption text-muted">{tier.tagline}</p>
 
                 <div className="mt-6 flex items-baseline gap-3">
-                  <span className="font-display text-h3 tabular-nums text-bone">
+                  <span className="font-display text-h3 tabular-nums text-ink">
                     {formatINR(tier.pricePaise)}
                   </span>
                   {tier.comparePaise ? (
-                    <span className="font-mono text-caption tabular-nums text-ash-dim line-through">
+                    <span className="font-mono text-caption tabular-nums text-muted-dim line-through">
                       {formatINR(tier.comparePaise)}
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-1 text-caption text-ash-dim">
+                <p className="mt-1 text-caption text-muted-dim">
                   {tier.durationWeeks} weeks of coaching
                   {tier.consults > 0 ? ` · ${tier.consults} consults` : ""}
                 </p>
 
                 <ul className="mt-7 space-y-3">
                   {tier.features.map((f) => (
-                    <li key={f} className="flex gap-3 text-caption text-ash">
+                    <li key={f} className="flex gap-3 text-caption text-muted">
                       <Check
                         className="mt-0.5 size-3.5 shrink-0 text-blood-bright"
                         aria-hidden="true"
@@ -342,7 +381,7 @@ function Coaches({ items }: { items: Awaited<ReturnType<typeof listCoaches>> }) 
           as="h2"
           text="COACHED BY PEOPLE, NOT AN APP."
           onScroll
-          className="mt-5 max-w-3xl font-display text-h2 leading-display text-bone"
+          className="mt-5 max-w-3xl font-display text-h2 leading-display text-ink"
         />
 
         <Reveal stagger={0.1} as="ul" className="mt-14 grid gap-8 md:grid-cols-3">
@@ -357,26 +396,92 @@ function Coaches({ items }: { items: Awaited<ReturnType<typeof listCoaches>> }) 
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink to-transparent p-5 pt-16">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas to-transparent p-5 pt-16">
                     <Badge tone={coach.kind === "dietician" ? "blood" : "neutral"}>
                       {coach.kind}
                     </Badge>
-                    <h3 className="mt-3 font-display text-h4 text-bone">{coach.name}</h3>
-                    <p className="text-caption text-ash">{coach.headline}</p>
+                    <h3 className="mt-3 font-display text-h4 text-ink">{coach.name}</h3>
+                    <p className="text-caption text-muted">{coach.headline}</p>
                   </div>
                 </div>
               </Link>
-              <p className="mt-4 text-caption leading-relaxed text-ash">{coach.bio}</p>
+              <p className="mt-4 text-caption leading-relaxed text-muted">{coach.bio}</p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {coach.specialties.map((s) => (
                   <li
                     key={s}
-                    className="rounded-pill border border-hairline px-3 py-1 font-mono text-[0.65rem] text-ash-dim"
+                    className="rounded-pill border border-hairline px-3 py-1 font-mono text-[0.65rem] text-muted-dim"
                   >
                     {s}
                   </li>
                 ))}
               </ul>
+            </RevealItem>
+          ))}
+        </Reveal>
+      </Container>
+    </Section>
+  );
+}
+
+/**
+ * Real photographs of the coach, in his own gym.
+ *
+ * Deliberately NOT a carousel. A carousel hides three of the four frames
+ * behind an interaction almost nobody performs; a staggered grid shows all
+ * four at once and lets the scroll reveal do the sequencing for free. The
+ * portrait shots are tall (5:4 vertical) so a phone shows one per thumb-scroll
+ * instead of four postage stamps.
+ */
+const GYM_FRAMES = [
+  { src: "/coach/gallery-1.jpg", alt: "Coach Mack between sets at the rack", span: "lg:row-span-2" },
+  { src: "/coach/gallery-2.jpg", alt: "Coach Mack working a cable curl", span: "" },
+  { src: "/coach/gallery-3.jpg", alt: "Studio portrait of Coach Mack", span: "" },
+  { src: "/coach/gallery-4.jpg", alt: "Coach Mack, second studio frame", span: "lg:row-span-2" },
+] as const;
+
+function InsideTheGym() {
+  return (
+    <Section className="bg-surface-2">
+      <Container>
+        <FadeUp>
+          <Eyebrow>On the floor</Eyebrow>
+          <h2 className="mt-5 max-w-3xl text-h2">Not stock photos. Him.</h2>
+          <p className="mt-5 max-w-xl text-lead text-muted">
+            Every plan on this site is written by the person in these frames.
+          </p>
+        </FadeUp>
+
+        <Reveal
+          as="ul"
+          className="mt-14 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4"
+          stagger={0.09}
+        >
+          {GYM_FRAMES.map((frame, i) => (
+            <RevealItem as="li" key={frame.src} className={frame.span}>
+              <figure
+                className="group relative h-full overflow-hidden rounded-lg bg-surface-3 shadow-e1
+                           transition-[box-shadow,transform] duration-500 ease-out-quart
+                           hover:-translate-y-1.5 hover:shadow-e3 motion-reduce:hover:translate-y-0"
+              >
+                <Image
+                  src={frame.src}
+                  alt={frame.alt}
+                  width={1100}
+                  height={1400}
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out-quart
+                             group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
+                  /* The first two are near the fold on tall screens. */
+                  loading={i < 2 ? "eager" : "lazy"}
+                />
+                {/* A hairline inside the frame: on paper an image needs an edge,
+                    and a border on the <figure> would sit outside the radius. */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-ink/10"
+                />
+              </figure>
             </RevealItem>
           ))}
         </Reveal>
@@ -397,10 +502,10 @@ function Faq() {
             as="h2"
             text={["QUESTIONS,", "ANSWERED."]}
             onScroll
-            className="mt-5 font-display text-h2 leading-display text-bone"
+            className="mt-5 font-display text-h2 leading-display text-ink"
           />
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-sm text-caption leading-relaxed text-ash">
+            <p className="mt-5 max-w-sm text-caption leading-relaxed text-muted">
               Still unsure? Message the coach directly on WhatsApp — you will get a human reply,
               not a bot.
             </p>
@@ -417,17 +522,17 @@ function Faq() {
             <RevealItem as="li" key={faq.q}>
               <details className="group py-5">
                 <summary
-                  className="flex cursor-pointer list-none items-start justify-between gap-6 font-display text-lg tracking-[0.01em] text-bone marker:hidden"
+                  className="flex cursor-pointer list-none items-start justify-between gap-6 font-display text-lg tracking-[0.01em] text-ink marker:hidden"
                 >
                   {faq.q}
                   <span
                     aria-hidden="true"
-                    className="mt-1 grid size-6 shrink-0 place-items-center rounded-full border border-hairline-hi text-ash transition-transform duration-300 group-open:rotate-45 group-open:border-blood group-open:text-blood-bright"
+                    className="mt-1 grid size-6 shrink-0 place-items-center rounded-full border border-hairline-hi text-muted transition-transform duration-300 group-open:rotate-45 group-open:border-blood group-open:text-blood-bright"
                   >
                     +
                   </span>
                 </summary>
-                <p className="mt-4 max-w-2xl text-caption leading-relaxed text-ash">{faq.a}</p>
+                <p className="mt-4 max-w-2xl text-caption leading-relaxed text-muted">{faq.a}</p>
               </details>
             </RevealItem>
           ))}
@@ -453,18 +558,18 @@ function FinalCta() {
           text={["STOP GUESSING.", "START TRANSFORMING."]}
           by="char"
           onScroll
-          className="mx-auto mt-6 max-w-5xl font-display text-h1 leading-mega tracking-mega text-bone"
+          className="mx-auto mt-6 max-w-5xl font-display text-h1 leading-mega tracking-mega text-ink"
         />
         <Reveal delay={0.15}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <MagneticButton
               href="/diet"
-              className="inline-flex items-center gap-2 rounded-pill bg-blood px-9 py-4 font-display text-sm tracking-[0.16em] uppercase text-bone transition-colors hover:bg-blood-bright"
+              className="inline-flex items-center gap-2 rounded-pill bg-blood px-9 py-4 font-display text-sm tracking-[0.16em] uppercase text-canvas transition-colors hover:bg-blood-bright"
             >
               <Sparkles className="size-4" aria-hidden="true" />
               Build my diet chart
             </MagneticButton>
-            <ButtonLink href="/book" variant="bone">
+            <ButtonLink href="/book" variant="solid">
               <Clock className="size-4" aria-hidden="true" />
               Book a 1-to-1 call
             </ButtonLink>

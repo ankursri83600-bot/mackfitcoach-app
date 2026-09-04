@@ -45,10 +45,10 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <Reveal>
             <Eyebrow>Your plan</Eyebrow>
-            <h1 className="mt-3 font-display text-h2 leading-display text-bone">
+            <h1 className="mt-3 font-display text-h2 leading-display text-ink">
               {unlocked ? "Full 7-day chart" : "Day 1 preview"}
             </h1>
-            <p className="mt-3 max-w-xl text-ash">
+            <p className="mt-3 max-w-xl text-muted">
               Built from your BMI of {metrics.bmi}, a {metrics.targetKcal} kcal daily target, and
               your food preferences.
             </p>
@@ -104,7 +104,7 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
           <Reveal delay={0.18}>
             <div className="mt-6 flex items-start gap-3 rounded-md border border-warn/40 bg-warn/10 p-4">
               <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warn" aria-hidden="true" />
-              <p className="text-caption text-ash">
+              <p className="text-caption text-muted">
                 Your calculated deficit would have gone below the safe minimum, so your target was
                 raised to a safe floor.
               </p>
@@ -117,7 +117,7 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
             {plan.warnings.map((w, i) => (
               <li
                 key={i}
-                className="rounded-md border border-blood/30 bg-blood/5 px-4 py-3 text-caption text-ash"
+                className="rounded-md border border-blood/30 bg-blood/5 px-4 py-3 text-caption text-muted"
               >
                 {w}
               </li>
@@ -141,8 +141,8 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
           <Reveal delay={0.1}>
             <div className="mt-10 rounded-lg border border-blood/40 bg-surface-2 p-8 text-center">
               <Badge tone="blood">6 more days locked</Badge>
-              <h2 className="mt-4 font-display text-h3 text-bone">See your whole week</h2>
-              <p className="mx-auto mt-3 max-w-md text-ash">
+              <h2 className="mt-4 font-display text-h3 text-ink">See your whole week</h2>
+              <p className="mx-auto mt-3 max-w-md text-muted">
                 Unlock the full 7-day chart, a printable PDF, and 1-to-1 support from a dietician.
               </p>
               <ButtonLink href={`/checkout/starter?planId=${planId}`} className="mt-6">
@@ -154,20 +154,20 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
 
         <Reveal delay={0.1} as="div" className="mt-12 grid gap-6 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-h4 text-bone">Notes</h2>
+            <h2 className="font-display text-h4 text-ink">Notes</h2>
             <ul className="mt-4 space-y-3">
               {plan.notes.map((n, i) => (
-                <li key={i} className="text-caption leading-relaxed text-ash">
+                <li key={i} className="text-caption leading-relaxed text-muted">
                   {n}
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="font-display text-h4 text-bone">Tips</h2>
+            <h2 className="font-display text-h4 text-ink">Tips</h2>
             <ul className="mt-4 space-y-3">
               {plan.tips.map((t, i) => (
-                <li key={i} className="text-caption leading-relaxed text-ash">
+                <li key={i} className="text-caption leading-relaxed text-muted">
                   {t}
                 </li>
               ))}
@@ -180,7 +180,7 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
         </Reveal>
 
         <Reveal delay={0.2} className="mt-6">
-          <p className="text-caption text-ash-dim">
+          <p className="text-caption text-muted-dim">
             Want to talk it through?{" "}
             <Link href="/book" className="text-blood-bright hover:underline">
               Book a call with a dietician
@@ -206,12 +206,12 @@ function Stat({
 }) {
   return (
     <div>
-      <p className="flex items-center gap-1.5 text-caption text-ash">
+      <p className="flex items-center gap-1.5 text-caption text-muted">
         {icon}
         {label}
       </p>
-      <p className="mt-1 font-mono text-h4 tabular-nums text-bone">{value}</p>
-      <p className="text-caption text-ash-dim">{unit}</p>
+      <p className="mt-1 font-mono text-h4 tabular-nums text-ink">{value}</p>
+      <p className="text-caption text-muted-dim">{unit}</p>
     </div>
   );
 }

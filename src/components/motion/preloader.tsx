@@ -93,7 +93,7 @@ export function Preloader() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-ink print:hidden"
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-canvas print:hidden"
       style={{
         transform: leaving ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 600ms cubic-bezier(0.83, 0, 0.17, 1)",
@@ -113,7 +113,7 @@ export function Preloader() {
         <div className="h-px w-full overflow-hidden bg-hairline">
           <div ref={barRef} className="h-full bg-blood" style={{ width: "0%" }} />
         </div>
-        <span ref={pctRef} className="font-mono text-caption tabular-nums text-ash">
+        <span ref={pctRef} className="font-mono text-caption tabular-nums text-muted">
           0%
         </span>
       </div>

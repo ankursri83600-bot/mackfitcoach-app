@@ -77,36 +77,36 @@ export default async function BookingDetailPage({
         <Reveal>
           <CalendarCheck className="size-10 text-good" aria-hidden="true" />
           <Eyebrow className="mt-6">Booking {booking.status as string}</Eyebrow>
-          <h1 className="mt-3 font-display text-h2 text-bone">YOUR SESSION</h1>
+          <h1 className="mt-3 font-display text-h2 text-ink">YOUR SESSION</h1>
         </Reveal>
 
         <Reveal delay={0.1}>
           <Card className="mt-8">
             <dl className="space-y-3 text-caption">
               <div className="flex justify-between gap-4">
-                <dt className="text-ash">Coach</dt>
-                <dd className="text-bone">
-                  {coach?.name} <span className="text-ash">({coach?.kind})</span>
+                <dt className="text-muted">Coach</dt>
+                <dd className="text-ink">
+                  {coach?.name} <span className="text-muted">({coach?.kind})</span>
                 </dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-ash">Date</dt>
-                <dd className="text-bone">{formatDateIST(booking.slot_date as string)}</dd>
+                <dt className="text-muted">Date</dt>
+                <dd className="text-ink">{formatDateIST(booking.slot_date as string)}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-ash">Time</dt>
-                <dd className="font-mono tabular-nums text-bone">
+                <dt className="text-muted">Time</dt>
+                <dd className="font-mono tabular-nums text-ink">
                   {formatTime24to12(String(booking.slot_start).slice(0, 5))} IST
                 </dd>
               </div>
               {booking.preferred_time ? (
                 <div className="flex justify-between gap-4">
-                  <dt className="text-ash">Preferred time</dt>
-                  <dd className="text-bone">{booking.preferred_time as string}</dd>
+                  <dt className="text-muted">Preferred time</dt>
+                  <dd className="text-ink">{booking.preferred_time as string}</dd>
                 </div>
               ) : null}
               <div className="flex justify-between gap-4">
-                <dt className="text-ash">Status</dt>
+                <dt className="text-muted">Status</dt>
                 <dd>
                   <Badge tone={booking.status === "confirmed" ? "good" : "neutral"}>
                     {booking.status as string}
@@ -114,8 +114,8 @@ export default async function BookingDetailPage({
                 </dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-ash">Reference</dt>
-                <dd className="font-mono text-bone">
+                <dt className="text-muted">Reference</dt>
+                <dd className="font-mono text-ink">
                   {(booking.id as string).slice(0, 8).toUpperCase()}
                 </dd>
               </div>
@@ -123,10 +123,10 @@ export default async function BookingDetailPage({
 
             <Rule className="my-6" />
 
-            <h2 className="font-display text-sm uppercase tracking-[0.14em] text-bone">
+            <h2 className="font-display text-sm uppercase tracking-[0.14em] text-ink">
               Talk to your coach
             </h2>
-            <p className="mt-2 text-caption text-ash">
+            <p className="mt-2 text-caption text-muted">
               Message now to introduce yourself — your coach will confirm the slot and take it from
               there.
             </p>
@@ -137,7 +137,7 @@ export default async function BookingDetailPage({
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-pill bg-good px-7 py-3.5 font-display text-[0.82rem] uppercase tracking-[0.16em] text-ink transition-opacity hover:opacity-90"
+                  className="inline-flex items-center justify-center gap-2 rounded-pill bg-good px-7 py-3.5 font-display text-[0.82rem] uppercase tracking-[0.16em] text-canvas transition-opacity hover:opacity-90"
                 >
                   <MessageCircle className="size-4" aria-hidden="true" />
                   Open WhatsApp
@@ -152,7 +152,7 @@ export default async function BookingDetailPage({
               {coachPhone ? (
                 <a
                   href={`tel:${coachPhone}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-pill border border-hairline-hi px-7 py-3.5 font-display text-[0.82rem] uppercase tracking-[0.16em] text-bone transition-colors hover:border-blood"
+                  className="inline-flex items-center justify-center gap-2 rounded-pill border border-hairline-hi px-7 py-3.5 font-display text-[0.82rem] uppercase tracking-[0.16em] text-ink transition-colors hover:border-blood"
                 >
                   <Phone className="size-4" aria-hidden="true" />
                   Call

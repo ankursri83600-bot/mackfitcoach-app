@@ -68,10 +68,10 @@ export function BmiGauge({ bmi, className }: { bmi: number | null; className?: s
       </svg>
 
       <div className="-mt-10 flex flex-col items-center">
-        <span className="font-display text-h3 tabular-nums text-bone">
+        <span className="font-display text-h3 tabular-nums text-ink">
           {bmi === null ? "—" : bmi.toFixed(1)}
         </span>
-        <span className="text-caption text-ash">BMI</span>
+        <span className="text-caption text-muted">BMI</span>
         {category ? (
           <span
             className="mt-2 rounded-pill border px-3 py-1 font-display text-[0.65rem] tracking-[0.16em] uppercase"
@@ -82,7 +82,7 @@ export function BmiGauge({ bmi, className }: { bmi: number | null; className?: s
         ) : null}
       </div>
 
-      <p className="mt-3 max-w-[220px] text-center text-[0.7rem] leading-relaxed text-ash-dim">
+      <p className="mt-3 max-w-[220px] text-center text-[0.7rem] leading-relaxed text-muted-dim">
         Based on the Asian-Indian BMI scale, where overweight begins at 23.
       </p>
     </div>

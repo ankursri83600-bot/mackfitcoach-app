@@ -30,9 +30,9 @@ export default async function TransformationsPage() {
             as="h1"
             text={["THE PROOF IS", "IN THE MIRROR."]}
             onScroll
-            className="mt-5 font-display text-h2 leading-display text-bone"
+            className="mt-5 font-display text-h2 leading-display text-ink"
           />
-          <p className="mt-5 text-ash">
+          <p className="mt-5 text-muted">
             Drag each slider — or use the arrow keys — to compare. Every plan was built from the
             same intake form you can fill in for free.
           </p>
@@ -49,17 +49,17 @@ export default async function TransformationsPage() {
               />
 
               <div className="mt-4 flex items-baseline justify-between gap-3">
-                <p className="font-display text-lg text-bone">{t.displayName}</p>
+                <p className="font-display text-lg text-ink">{t.displayName}</p>
                 <p className="font-mono text-caption tabular-nums text-blood-bright">
                   {t.endKg < t.startKg ? "−" : "+"}
                   {Math.abs(t.startKg - t.endKg).toFixed(0)} kg
                 </p>
               </div>
-              <p className="mt-1 text-caption text-ash">
+              <p className="mt-1 text-caption text-muted">
                 {t.goalLabel} · {t.weeks} weeks · {t.startKg}kg → {t.endKg}kg
               </p>
               {t.testimonial ? (
-                <blockquote className="mt-3 border-l-2 border-blood/60 pl-4 text-caption italic leading-relaxed text-ash">
+                <blockquote className="mt-3 border-l-2 border-blood/60 pl-4 text-caption italic leading-relaxed text-muted">
                   “{t.testimonial}”
                 </blockquote>
               ) : null}
@@ -71,7 +71,7 @@ export default async function TransformationsPage() {
           <Reveal delay={0.1}>
             <div className="mt-12 rounded-md border border-hairline bg-surface p-5">
               <Badge>Sample images</Badge>
-              <p className="mt-3 text-caption leading-relaxed text-ash">
+              <p className="mt-3 text-caption leading-relaxed text-muted">
                 These are placeholder figures, not real clients. Real before/after photos are only
                 published once written consent is on file — the database enforces it.
               </p>
@@ -80,7 +80,7 @@ export default async function TransformationsPage() {
         ) : null}
 
         <Reveal delay={0.15} className="mt-14 text-center">
-          <h2 className="font-display text-h3 text-bone">YOUR TURN</h2>
+          <h2 className="font-display text-h3 text-ink">YOUR TURN</h2>
           <ButtonLink href="/diet" className="mt-6">
             Build my free chart
           </ButtonLink>

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export const controlStyles =
-  "w-full rounded-sm border border-hairline-hi bg-surface px-4 py-3 text-bone outline-none transition-colors placeholder:text-ash-dim focus:border-blood disabled:opacity-50";
+  "w-full rounded-sm border border-hairline-hi bg-surface px-4 py-3 text-ink outline-none transition-colors placeholder:text-muted-dim focus:border-blood disabled:opacity-50";
 
 export function Field({
   label,
@@ -24,12 +24,12 @@ export function Field({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={htmlFor} className="text-caption text-ash">
+      <label htmlFor={htmlFor} className="text-caption text-muted">
         {label}
         {required ? <span className="text-blood"> *</span> : null}
       </label>
       {children}
-      {hint && !error ? <p className="text-[0.7rem] text-ash-dim">{hint}</p> : null}
+      {hint && !error ? <p className="text-[0.7rem] text-muted-dim">{hint}</p> : null}
       {error ? (
         <p role="alert" className="text-[0.7rem] text-blood-bright">
           {error}
@@ -61,7 +61,7 @@ export function FormAlert({
   const tones = {
     error: "border-blood/50 bg-blood/10 text-blood-bright",
     success: "border-good/50 bg-good/10 text-good",
-    info: "border-hairline-hi bg-surface-2 text-ash",
+    info: "border-hairline-hi bg-surface-2 text-muted",
   } as const;
 
   return (
@@ -79,8 +79,8 @@ export function FormAlert({
 export function SupabaseNotice() {
   return (
     <FormAlert tone="info">
-      <strong className="text-bone">Accounts are not connected yet.</strong> Add your Supabase
-      keys to <code className="text-bone">.env.local</code> to enable sign-in. Everything else on
+      <strong className="text-ink">Accounts are not connected yet.</strong> Add your Supabase
+      keys to <code className="text-ink">.env.local</code> to enable sign-in. Everything else on
       the site — including the diet chart — works without them.
     </FormAlert>
   );

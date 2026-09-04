@@ -39,7 +39,7 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-3 font-display text-[0.7rem] tracking-[0.32em] text-ash",
+        "inline-flex items-center gap-3 font-display text-[0.7rem] tracking-[0.32em] text-muted",
         className,
       )}
     >
@@ -49,17 +49,33 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
   );
 }
 
-type ButtonVariant = "blood" | "bone" | "outline" | "ghost";
+type ButtonVariant = "blood" | "solid" | "outline" | "ghost";
 
+/**
+ * On the dark theme every filled button took `text-ink`, because ink was the
+ * bone white. Inverted, that same class paints near-black text on a red fill —
+ * so the filled variants now say `text-canvas` explicitly.
+ */
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
-  blood: "bg-blood text-bone hover:bg-blood-bright",
-  bone: "bg-bone text-ink hover:bg-white",
-  outline: "border border-hairline-hi text-bone hover:border-blood hover:text-blood-bright",
-  ghost: "text-bone hover:text-blood-bright",
+  // Gradient fill plus a glow in its own hue — the reference's signature.
+  // `grad-animate` drifts the gradient so a filled button is never static.
+  blood: "grad-blood grad-animate text-white shadow-accent hover:shadow-e3",
+  solid: "grad-dark grad-animate text-white shadow-e2 hover:shadow-e3",
+  outline:
+    "border border-hairline-hi bg-surface text-ink shadow-e1 hover:border-transparent hover:text-blood hover:shadow-e2",
+  ghost: "text-ink hover:bg-surface-2 hover:text-blood",
 };
 
+/**
+ * The lift is 1px and only on hover. Filled buttons on paper need SOME
+ * elevation cue to read as pressable — on black the colour alone did it.
+ * `active:` returns it to the surface so the click has a physical bottom.
+ */
 const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 rounded-pill px-7 py-3.5 font-display text-[0.82rem] tracking-[0.16em] uppercase transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-pill px-7 py-3.5 font-display text-[0.82rem] tracking-[0.16em] uppercase " +
+  "transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out-quart " +
+  "hover:-translate-y-px active:translate-y-0 active:duration-75 " +
+  "disabled:pointer-events-none disabled:opacity-50 motion-reduce:hover:translate-y-0";
 
 export function Button({
   children,
@@ -117,8 +133,13 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-lg border border-hairline bg-surface p-6",
-        interactive && "transition-colors duration-300 hover:border-blood/50 hover:bg-surface-2",
+        // Borderless and floating: Soft UI cards are pure white on a grey page,
+        // separated by shadow alone. A visible border here is the single
+        // fastest way to lose the look.
+        "rounded-lg bg-surface p-6 shadow-e2",
+        interactive &&
+          "transition-[box-shadow,transform] duration-300 ease-out-quart " +
+            "hover:-translate-y-1.5 hover:shadow-e3 motion-reduce:hover:translate-y-0",
         className,
       )}
     >
@@ -136,11 +157,14 @@ export function Badge({
   tone?: "neutral" | "blood" | "good" | "warn";
   className?: string;
 }) {
+  // Each tone is a wash of its own colour with the DEEP shade as text. The
+  // dark theme could use the bright shade because it sat on near-black; at 10%
+  // tint on paper the bright shades all fall under 3:1.
   const tones = {
-    neutral: "border-hairline-hi text-ash",
-    blood: "border-blood/60 bg-blood/10 text-blood-bright",
-    good: "border-good/50 bg-good/10 text-good",
-    warn: "border-warn/50 bg-warn/10 text-warn",
+    neutral: "border-hairline-hi bg-surface-2 text-muted",
+    blood: "border-blood/30 bg-blood-tint text-blood-deep",
+    good: "border-good/30 bg-good/10 text-good",
+    warn: "border-warn/30 bg-warn/10 text-warn",
   } as const;
 
   return (
@@ -167,8 +191,8 @@ export function Rule({ className }: { className?: string }) {
  */
 export function HealthDisclaimer({ className }: { className?: string }) {
   return (
-    <p className={cn("text-caption leading-relaxed text-ash-dim", className)}>
-      <strong className="text-ash">Not medical advice.</strong> This plan is generated
+    <p className={cn("text-caption leading-relaxed text-muted-dim", className)}>
+      <strong className="text-muted">Not medical advice.</strong> This plan is generated
       automatically from the details you entered and is intended for general fitness guidance
       only. It is not a substitute for professional medical or dietetic care. Consult a doctor
       before starting any diet if you are pregnant or breastfeeding, are under 18, or have a

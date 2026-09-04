@@ -16,7 +16,7 @@ export async function SiteHeaderAuth() {
     return (
       <Link
         href="/login"
-        className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-bone/80 transition-colors hover:text-bone"
+        className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-ink/80 transition-colors hover:text-ink"
       >
         Log in
       </Link>
@@ -35,7 +35,7 @@ export async function SiteHeaderAuth() {
       ) : null}
       <Link
         href="/dashboard"
-        className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-bone/80 transition-colors hover:text-bone"
+        className="font-display text-[0.78rem] uppercase tracking-[0.16em] text-ink/80 transition-colors hover:text-ink"
       >
         {profile.full_name ? profile.full_name.split(" ")[0] : "Account"}
       </Link>

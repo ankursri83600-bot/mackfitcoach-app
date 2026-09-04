@@ -92,7 +92,7 @@ export function LoginForm() {
                 <button
                   type="button"
                   onClick={onReset}
-                  className="text-ash underline-offset-4 hover:text-bone hover:underline"
+                  className="text-muted underline-offset-4 hover:text-ink hover:underline"
                 >
                   Forgot password?
                 </button>

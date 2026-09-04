@@ -114,7 +114,7 @@ export function BookingWidget({
       <div className="flex flex-col gap-8">
         {/* Coach */}
         <fieldset>
-          <legend className="font-display text-sm uppercase tracking-[0.14em] text-bone">
+          <legend className="font-display text-sm uppercase tracking-[0.14em] text-ink">
             1. Choose a coach
           </legend>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -128,7 +128,7 @@ export function BookingWidget({
                   "flex items-center gap-3 rounded-md border p-3 text-left transition-colors",
                   coachSlug === coach.slug
                     ? "border-blood bg-blood/10"
-                    : "border-hairline-hi hover:border-bone/40",
+                    : "border-hairline-hi hover:border-ink/40",
                 )}
               >
                 <Image
@@ -139,8 +139,8 @@ export function BookingWidget({
                   className="size-11 shrink-0 rounded-full object-cover"
                 />
                 <span>
-                  <span className="block text-caption text-bone">{coach.name}</span>
-                  <span className="block text-[0.7rem] text-ash">{coach.kind}</span>
+                  <span className="block text-caption text-ink">{coach.name}</span>
+                  <span className="block text-[0.7rem] text-muted">{coach.kind}</span>
                 </span>
               </button>
             ))}
@@ -149,7 +149,7 @@ export function BookingWidget({
 
         {/* Date */}
         <fieldset>
-          <legend className="font-display text-sm uppercase tracking-[0.14em] text-bone">
+          <legend className="font-display text-sm uppercase tracking-[0.14em] text-ink">
             2. Pick a date
           </legend>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-2" data-lenis-prevent>
@@ -161,13 +161,13 @@ export function BookingWidget({
                 onClick={() => setDate(d)}
                 className={cn(
                   "shrink-0 rounded-md border px-4 py-3 text-center transition-colors",
-                  date === d ? "border-blood bg-blood/10" : "border-hairline-hi hover:border-bone/40",
+                  date === d ? "border-blood bg-blood/10" : "border-hairline-hi hover:border-ink/40",
                 )}
               >
-                <span className="block font-mono text-caption tabular-nums text-bone">
+                <span className="block font-mono text-caption tabular-nums text-ink">
                   {d.slice(8, 10)}
                 </span>
-                <span className="block text-[0.65rem] uppercase text-ash">
+                <span className="block text-[0.65rem] uppercase text-muted">
                   {new Date(`${d}T00:00:00Z`).toLocaleDateString("en-IN", {
                     weekday: "short",
                     timeZone: "UTC",
@@ -180,12 +180,12 @@ export function BookingWidget({
 
         {/* Slots */}
         <fieldset>
-          <legend className="font-display text-sm uppercase tracking-[0.14em] text-bone">
+          <legend className="font-display text-sm uppercase tracking-[0.14em] text-ink">
             3. Pick a time
           </legend>
           <div className="mt-4">
             {loadingSlots ? (
-              <p className="text-caption text-ash">Loading slots…</p>
+              <p className="text-caption text-muted">Loading slots…</p>
             ) : slotsMessage ? (
               <FormAlert tone="info">{slotsMessage}</FormAlert>
             ) : (
@@ -207,10 +207,10 @@ export function BookingWidget({
                     className={cn(
                       "rounded-sm border px-2 py-2 font-mono text-[0.75rem] tabular-nums transition-colors",
                       slotStart === slot.start
-                        ? "border-blood bg-blood text-bone"
+                        ? "border-blood bg-blood text-canvas"
                         : slot.available
-                          ? "border-hairline-hi text-bone hover:border-blood"
-                          : "border-hairline text-ash-dim line-through opacity-50",
+                          ? "border-hairline-hi text-ink hover:border-blood"
+                          : "border-hairline text-muted-dim line-through opacity-50",
                     )}
                   >
                     {formatTime24to12(slot.start)}
@@ -224,7 +224,7 @@ export function BookingWidget({
 
       {/* Details */}
       <Card className="h-fit">
-        <h2 className="font-display text-sm uppercase tracking-[0.14em] text-bone">
+        <h2 className="font-display text-sm uppercase tracking-[0.14em] text-ink">
           4. Your details
         </h2>
 
@@ -273,11 +273,11 @@ export function BookingWidget({
             <Textarea id="b-topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
           </Field>
 
-          <div className="rounded-sm border border-hairline bg-surface-2 px-4 py-3 text-caption text-ash">
+          <div className="rounded-sm border border-hairline bg-surface-2 px-4 py-3 text-caption text-muted">
             {slotStart ? (
               <>
-                Booking <strong className="text-bone">{formatDateIST(date)}</strong> at{" "}
-                <strong className="text-bone">{formatTime24to12(slotStart)} IST</strong>
+                Booking <strong className="text-ink">{formatDateIST(date)}</strong> at{" "}
+                <strong className="text-ink">{formatTime24to12(slotStart)} IST</strong>
               </>
             ) : (
               "Select a date and time to continue."
@@ -288,7 +288,7 @@ export function BookingWidget({
             {busy ? "Booking…" : "Request this slot"}
           </Button>
 
-          <p className="text-[0.7rem] leading-relaxed text-ash-dim">
+          <p className="text-[0.7rem] leading-relaxed text-muted-dim">
             You will get a WhatsApp link to your coach as soon as the booking is in. Sessions are
             confirmed by the coach, usually within a few hours.
           </p>

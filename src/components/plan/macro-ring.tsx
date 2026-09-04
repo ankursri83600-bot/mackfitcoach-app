@@ -51,14 +51,14 @@ export function MacroRing({ proteinG, carbsG, fatG, size = 160 }: MacroRingProps
       </svg>
       <ul className="space-y-2">
         {segments.map((s) => (
-          <li key={s.label} className="flex items-center gap-2 text-caption text-ash">
+          <li key={s.label} className="flex items-center gap-2 text-caption text-muted">
             <span
               aria-hidden="true"
               className="size-2.5 rounded-full"
               style={{ backgroundColor: s.color }}
             />
             {s.label}
-            <span className="font-mono tabular-nums text-bone">
+            <span className="font-mono tabular-nums text-ink">
               {s.label === "Protein" ? proteinG : s.label === "Carbs" ? carbsG : fatG}g
             </span>
           </li>

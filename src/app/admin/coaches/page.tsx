@@ -28,14 +28,14 @@ export default async function AdminCoachesPage() {
       {demo ? <DemoBanner /> : null}
 
       <div className="mb-8 rounded-md border border-hairline bg-surface p-5">
-        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-bone">
+        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-ink">
           Where the phone numbers live
         </p>
-        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-ash">
-          Coach numbers are stored in a separate <code className="text-bone">coach_contacts</code>{" "}
+        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-muted">
+          Coach numbers are stored in a separate <code className="text-ink">coach_contacts</code>{" "}
           table readable only by staff — not as a column on the public coaches record. Row-level
           security cannot protect a single column, so a public{" "}
-          <code className="text-bone">coaches.phone</code> would hand every coach&apos;s mobile to
+          <code className="text-ink">coaches.phone</code> would hand every coach&apos;s mobile to
           anyone holding the public API key. Clients only ever receive the number baked into a
           WhatsApp link, for a booking they own.
         </p>
@@ -43,7 +43,7 @@ export default async function AdminCoachesPage() {
 
       {rows.length === 0 ? (
         <EmptyState>
-          No coaches yet. Run <code className="text-bone">npm run seed:coaches</code> to create the
+          No coaches yet. Run <code className="text-ink">npm run seed:coaches</code> to create the
           starter three with their weekly availability.
         </EmptyState>
       ) : (
@@ -66,7 +66,7 @@ export default async function AdminCoachesPage() {
               />
 
               <div className="mt-6">
-                <p className="text-[0.68rem] uppercase tracking-[0.14em] text-ash-dim">
+                <p className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">
                   Weekly availability
                 </p>
                 {coach.windows.length === 0 ? (
@@ -78,16 +78,16 @@ export default async function AdminCoachesPage() {
                     {coach.windows.map((w, i) => (
                       <li
                         key={`${w.weekday}-${w.start_time}-${i}`}
-                        className="rounded-sm border border-hairline-hi px-3 py-1.5 font-mono text-[0.68rem] tabular-nums text-ash"
+                        className="rounded-sm border border-hairline-hi px-3 py-1.5 font-mono text-[0.68rem] tabular-nums text-muted"
                       >
-                        <span className="text-bone">{WEEKDAY_LABEL[w.weekday].slice(0, 3)}</span>{" "}
+                        <span className="text-ink">{WEEKDAY_LABEL[w.weekday].slice(0, 3)}</span>{" "}
                         {formatTime24to12(w.start_time)} – {formatTime24to12(w.end_time)}
                       </li>
                     ))}
                   </ul>
                 )}
                 {coach.windows.length > 0 ? (
-                  <p className="mt-3 text-[0.68rem] leading-relaxed text-ash-dim">
+                  <p className="mt-3 text-[0.68rem] leading-relaxed text-muted-dim">
                     Individual slots are derived from these windows at request time, so changing a
                     window instantly changes what clients can book — there are no pre-generated slot
                     rows to clean up.

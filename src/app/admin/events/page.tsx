@@ -46,10 +46,10 @@ export default async function AdminEventsPage() {
       </section>
 
       <div className="mb-8 mt-8 rounded-md border border-hairline bg-surface p-5">
-        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-bone">
+        <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-ink">
           Why this log exists
         </p>
-        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-ash">
+        <p className="mt-2 max-w-3xl text-caption leading-relaxed text-muted">
           Razorpay can deliver the same event more than once, and the webhook is the source of truth
           for whether someone has paid. Every delivery is recorded here under its event id before
           anything is acted on, so a repeat delivery is recognised and ignored rather than granting
@@ -83,7 +83,7 @@ export default async function AdminEventsPage() {
                     {event.handler_error}
                   </span>
                 ) : (
-                  <span className="text-ash-dim">—</span>
+                  <span className="text-muted-dim">—</span>
                 )}
               </Cell>
             </Row>

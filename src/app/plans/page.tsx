@@ -31,9 +31,9 @@ export default function PlansPage() {
             as="h1"
             text={["PAY ONCE.", "EAT RIGHT FOR MONTHS."]}
             onScroll
-            className="mt-5 font-display text-h2 leading-display text-bone"
+            className="mt-5 font-display text-h2 leading-display text-ink"
           />
-          <p className="mt-5 text-ash">
+          <p className="mt-5 text-muted">
             Every plan starts with the same free chart. You only pay to unlock the rest of the week
             and to talk to a human.
           </p>
@@ -55,27 +55,27 @@ export default function PlansPage() {
                   </Badge>
                 ) : null}
 
-                <h2 className="font-display text-h4 text-bone">{tier.name}</h2>
-                <p className="mt-1 text-caption text-ash">{tier.tagline}</p>
+                <h2 className="font-display text-h4 text-ink">{tier.name}</h2>
+                <p className="mt-1 text-caption text-muted">{tier.tagline}</p>
 
                 <div className="mt-6 flex items-baseline gap-3">
-                  <span className="font-display text-h3 tabular-nums text-bone">
+                  <span className="font-display text-h3 tabular-nums text-ink">
                     {formatINR(tier.pricePaise)}
                   </span>
                   {tier.comparePaise ? (
-                    <span className="font-mono text-caption tabular-nums text-ash-dim line-through">
+                    <span className="font-mono text-caption tabular-nums text-muted-dim line-through">
                       {formatINR(tier.comparePaise)}
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-1 text-caption text-ash-dim">
+                <p className="mt-1 text-caption text-muted-dim">
                   {tier.durationWeeks} weeks
                   {tier.consults > 0 ? ` · ${tier.consults} consults` : ""}
                 </p>
 
                 <ul className="mt-7 space-y-3">
                   {tier.features.map((f) => (
-                    <li key={f} className="flex gap-3 text-caption text-ash">
+                    <li key={f} className="flex gap-3 text-caption text-muted">
                       <Check className="mt-0.5 size-3.5 shrink-0 text-blood-bright" aria-hidden="true" />
                       {f}
                     </li>

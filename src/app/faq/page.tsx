@@ -15,23 +15,23 @@ export default function FaqPage() {
       <Container className="max-w-3xl">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
-          <h1 className="mt-4 font-display text-h2 text-bone">QUESTIONS, ANSWERED</h1>
+          <h1 className="mt-4 font-display text-h2 text-ink">QUESTIONS, ANSWERED</h1>
         </Reveal>
 
         <Reveal stagger={0.06} as="ul" className="mt-12 divide-y divide-hairline border-t border-hairline">
           {FAQS.map((faq) => (
             <RevealItem as="li" key={faq.q}>
               <details className="group py-5">
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 font-display text-lg text-bone marker:hidden">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 font-display text-lg text-ink marker:hidden">
                   {faq.q}
                   <span
                     aria-hidden="true"
-                    className="mt-1 grid size-6 shrink-0 place-items-center rounded-full border border-hairline-hi text-ash transition-transform duration-300 group-open:rotate-45 group-open:border-blood group-open:text-blood-bright"
+                    className="mt-1 grid size-6 shrink-0 place-items-center rounded-full border border-hairline-hi text-muted transition-transform duration-300 group-open:rotate-45 group-open:border-blood group-open:text-blood-bright"
                   >
                     +
                   </span>
                 </summary>
-                <p className="mt-4 text-caption leading-relaxed text-ash">{faq.a}</p>
+                <p className="mt-4 text-caption leading-relaxed text-muted">{faq.a}</p>
               </details>
             </RevealItem>
           ))}

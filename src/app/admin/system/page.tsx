@@ -24,8 +24,8 @@ function StatusRow({
         className={cn("mt-1.5 size-2 shrink-0 rounded-full", ok ? "bg-good" : "bg-warn")}
       />
       <div className="min-w-48 flex-1">
-        <p className="text-caption text-bone">{label}</p>
-        <p className="mt-1 text-[0.7rem] leading-relaxed text-ash">{detail}</p>
+        <p className="text-caption text-ink">{label}</p>
+        <p className="mt-1 text-[0.7rem] leading-relaxed text-muted">{detail}</p>
         {!ok && fix ? (
           <p className="mt-2 text-[0.7rem] leading-relaxed text-warn">{fix}</p>
         ) : null}
@@ -92,25 +92,25 @@ export default async function AdminSystemPage() {
         </SectionCard>
 
         <SectionCard title="What still works without any of this">
-          <ul className="space-y-3 text-caption leading-relaxed text-ash">
+          <ul className="space-y-3 text-caption leading-relaxed text-muted">
             <li>
-              <span className="text-bone">The whole public site</span> — every page renders, nothing
+              <span className="text-ink">The whole public site</span> — every page renders, nothing
               errors.
             </li>
             <li>
-              <span className="text-bone">The diet chart engine</span> — BMI, BMR, targets and the
+              <span className="text-ink">The diet chart engine</span> — BMI, BMR, targets and the
               full 7-day plan are computed locally with no database and no external service.
             </li>
             <li>
-              <span className="text-bone">PDF download and print</span> — generated on the server
+              <span className="text-ink">PDF download and print</span> — generated on the server
               from the same plan.
             </li>
             <li>
-              <span className="text-bone">This admin console</span> — shown with sample rows so the
+              <span className="text-ink">This admin console</span> — shown with sample rows so the
               screens can be reviewed before going live.
             </li>
           </ul>
-          <p className="mt-5 text-[0.7rem] leading-relaxed text-ash-dim">
+          <p className="mt-5 text-[0.7rem] leading-relaxed text-muted-dim">
             Charts generated without Supabase are held in memory only, so they disappear when the
             server restarts. Connecting Supabase makes them permanent.
           </p>
@@ -119,12 +119,12 @@ export default async function AdminSystemPage() {
         <SectionCard title="Environment">
           <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
             <div>
-              <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-ash-dim">Mode</dt>
-              <dd className="mt-1 font-mono text-caption text-bone">{status.nodeEnv}</dd>
+              <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">Mode</dt>
+              <dd className="mt-1 font-mono text-caption text-ink">{status.nodeEnv}</dd>
             </div>
             <div>
-              <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-ash-dim">Site URL</dt>
-              <dd className="mt-1 font-mono text-caption text-bone">
+              <dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">Site URL</dt>
+              <dd className="mt-1 font-mono text-caption text-ink">
                 {status.siteUrl ?? "not set — used for auth redirects and share links"}
               </dd>
             </div>
@@ -139,9 +139,9 @@ export default async function AdminSystemPage() {
               ["npm run test:all", "Both of the above."],
               ["npm run seed:coaches", "Creates the three starter coaches with weekly availability."],
             ].map(([cmd, what]) => (
-              <div key={cmd} className="rounded-sm border border-hairline-hi bg-ink px-4 py-3">
+              <div key={cmd} className="rounded-sm border border-hairline-hi bg-canvas px-4 py-3">
                 <code className="font-mono text-[0.72rem] text-blood-bright">{cmd}</code>
-                <p className="mt-1.5 text-[0.7rem] leading-relaxed text-ash">{what}</p>
+                <p className="mt-1.5 text-[0.7rem] leading-relaxed text-muted">{what}</p>
               </div>
             ))}
           </div>

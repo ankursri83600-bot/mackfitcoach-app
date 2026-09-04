@@ -19,9 +19,9 @@ export default function LoginPage() {
     <Section className="min-h-[70vh]">
       <Container className="max-w-md">
         <Eyebrow>Account</Eyebrow>
-        <h1 className="mt-3 font-display text-h2 text-bone">LOG IN</h1>
+        <h1 className="mt-3 font-display text-h2 text-ink">LOG IN</h1>
 
-        <Suspense fallback={<Card className="mt-8"><p className="text-caption text-ash">Loading…</p></Card>}>
+        <Suspense fallback={<Card className="mt-8"><p className="text-caption text-muted">Loading…</p></Card>}>
           <LoginForm />
         </Suspense>
       </Container>

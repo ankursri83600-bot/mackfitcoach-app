@@ -43,7 +43,7 @@ export default function ResetPasswordPage() {
     <Section className="min-h-[60vh]">
       <Container className="max-w-md">
         <Eyebrow>Account</Eyebrow>
-        <h1 className="mt-3 font-display text-h2 text-bone">SET A NEW PASSWORD</h1>
+        <h1 className="mt-3 font-display text-h2 text-ink">SET A NEW PASSWORD</h1>
 
         <Card className="mt-8">
           {!supabase ? (

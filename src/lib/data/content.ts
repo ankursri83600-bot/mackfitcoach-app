@@ -164,7 +164,7 @@ export const COACHES: readonly Coach[] = [
     bio: "Twelve years on the gym floor, from first-time lifters to stage-ready physiques. Builds plans around what you can actually sustain, not what looks good on paper.",
     specialties: ["Body recomposition", "Strength", "Contest prep"],
     experienceYears: 12,
-    photoSrc: "/placeholder/coach-mack.jpg",
+    photoSrc: "/coach/coach-mack.jpg",
   },
   {
     slug: "dietician",

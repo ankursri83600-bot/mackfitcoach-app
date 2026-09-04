@@ -64,7 +64,7 @@ export default async function AdminOverviewPage() {
           <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-blood-bright">
             {mismatched.length} payment{mismatched.length === 1 ? "" : "s"} need reconciliation
           </p>
-          <p className="mt-2 max-w-2xl text-caption leading-relaxed text-ash">
+          <p className="mt-2 max-w-2xl text-caption leading-relaxed text-muted">
             A capture disagreed with the amount we asked for, so it was refused rather than settled.
             These never granted access and may need refunding.{" "}
             <Link href="/admin/orders" className="text-blood-bright underline">
@@ -139,7 +139,7 @@ export default async function AdminOverviewPage() {
           }
         >
           {orders.rows.length === 0 ? (
-            <p className="text-caption text-ash">No orders yet.</p>
+            <p className="text-caption text-muted">No orders yet.</p>
           ) : (
             <TableShell head={["Customer", "Plan", "Amount", "Status"]} minWidth="34rem">
               {orders.rows.slice(0, 6).map((order) => (
@@ -168,7 +168,7 @@ export default async function AdminOverviewPage() {
           }
         >
           {bookings.rows.length === 0 ? (
-            <p className="text-caption text-ash">No bookings yet.</p>
+            <p className="text-caption text-muted">No bookings yet.</p>
           ) : (
             <TableShell head={["Client", "Coach", "When", "Status"]} minWidth="34rem">
               {bookings.rows.slice(0, 6).map((booking) => (
@@ -202,7 +202,7 @@ export default async function AdminOverviewPage() {
           }
         >
           {intakes.rows.length === 0 ? (
-            <p className="text-caption text-ash">No intakes yet.</p>
+            <p className="text-caption text-muted">No intakes yet.</p>
           ) : (
             <TableShell
               head={["Name", "Body", "Goal", "Diet", "Target", "Status", ""]}
