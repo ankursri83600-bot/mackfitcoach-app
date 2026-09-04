@@ -12,16 +12,15 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
   contact: {
-    email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "coach@mackfitcoach.com",
+    email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "sumitsri83600@gmail.com",
     /** E.164, digits only after the +. Used to build wa.me links. */
-    whatsapp: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+919999999999",
-    phoneLabel: "+91 99999 99999",
+    whatsapp: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+916299534082",
     city: "India",
   },
 
   social: {
-    instagram: "https://instagram.com/mackfitcoach",
-    youtube: "https://youtube.com/@mackfitcoach",
+    instagram: "https://instagram.com/macfit_coach",
+    youtube: "https://www.youtube.com/@Coachdhananjay",
   },
 
   /** Marketing counters. Kept here so they are not hardcoded in a component. */

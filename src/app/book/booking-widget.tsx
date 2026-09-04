@@ -110,14 +110,17 @@ export function BookingWidget({
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-8 lg:grid-cols-[1fr_1fr]">
-      <div className="flex flex-col gap-8">
+    <form
+      onSubmit={onSubmit}
+      className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-start lg:gap-8"
+    >
+      <div className="flex min-w-0 flex-col gap-6">
         {/* Coach */}
         <fieldset>
           <legend className="font-display text-sm uppercase tracking-[0.14em] text-ink">
             1. Choose a coach
           </legend>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {coaches.map((coach) => (
               <button
                 key={coach.slug}
@@ -125,10 +128,12 @@ export function BookingWidget({
                 aria-pressed={coachSlug === coach.slug}
                 onClick={() => setCoachSlug(coach.slug)}
                 className={cn(
-                  "flex items-center gap-3 rounded-md border p-3 text-left transition-colors",
+                  "flex min-h-14 items-center gap-3 rounded-md p-3 text-left",
+                  "transition-[box-shadow,transform,background-color] duration-200 ease-out-quart",
+                  "motion-reduce:transform-none",
                   coachSlug === coach.slug
-                    ? "border-blood bg-blood/10"
-                    : "border-hairline-hi hover:border-ink/40",
+                    ? "grad-blood text-white shadow-accent"
+                    : "bg-surface text-ink shadow-e1 hover:-translate-y-0.5 hover:shadow-e2",
                 )}
               >
                 <Image
@@ -138,9 +143,16 @@ export function BookingWidget({
                   height={44}
                   className="size-11 shrink-0 rounded-full object-cover"
                 />
-                <span>
-                  <span className="block text-caption text-ink">{coach.name}</span>
-                  <span className="block text-[0.7rem] text-muted">{coach.kind}</span>
+                <span className="min-w-0">
+                  <span className="block truncate text-caption font-semibold">{coach.name}</span>
+                  <span
+                    className={cn(
+                      "block text-[0.7rem] capitalize",
+                      coachSlug === coach.slug ? "text-white/75" : "text-muted",
+                    )}
+                  >
+                    {coach.kind}
+                  </span>
                 </span>
               </button>
             ))}
@@ -152,7 +164,11 @@ export function BookingWidget({
           <legend className="font-display text-sm uppercase tracking-[0.14em] text-ink">
             2. Pick a date
           </legend>
-          <div className="mt-4 flex gap-2 overflow-x-auto pb-2" data-lenis-prevent>
+          <div
+            className="-mx-1 mt-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-2
+                       [scrollbar-width:thin]"
+            data-lenis-prevent
+          >
             {dates.map((d) => (
               <button
                 key={d}
@@ -160,14 +176,21 @@ export function BookingWidget({
                 aria-pressed={date === d}
                 onClick={() => setDate(d)}
                 className={cn(
-                  "shrink-0 rounded-md border px-4 py-3 text-center transition-colors",
-                  date === d ? "border-blood bg-blood/10" : "border-hairline-hi hover:border-ink/40",
+                  "min-w-[3.75rem] shrink-0 snap-start rounded-md px-4 py-3 text-center",
+                  "transition-[box-shadow,transform,background-color] duration-200 ease-out-quart",
+                  "motion-reduce:transform-none",
+                  date === d
+                    ? "grad-blood text-white shadow-accent"
+                    : "bg-surface text-ink shadow-e1 hover:-translate-y-0.5 hover:shadow-e2",
                 )}
               >
-                <span className="block font-mono text-caption tabular-nums text-ink">
-                  {d.slice(8, 10)}
-                </span>
-                <span className="block text-[0.65rem] uppercase text-muted">
+                <span className="block font-mono text-caption tabular-nums">{d.slice(8, 10)}</span>
+                <span
+                  className={cn(
+                    "block text-[0.65rem] uppercase",
+                    date === d ? "text-white/75" : "text-muted",
+                  )}
+                >
                   {new Date(`${d}T00:00:00Z`).toLocaleDateString("en-IN", {
                     weekday: "short",
                     timeZone: "UTC",
@@ -189,7 +212,19 @@ export function BookingWidget({
             ) : slotsMessage ? (
               <FormAlert tone="info">{slotsMessage}</FormAlert>
             ) : (
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+              <>
+              {/*
+                Every slot present but none bookable is the normal state for
+                TODAY once the lead time has passed, and a grid of struck-out
+                times with no explanation reads as a broken page. Say why.
+              */}
+              {slots.length > 0 && slots.every((sl) => !sl.available) ? (
+                <p className="mb-3 rounded-sm bg-surface-2 px-3 py-2 text-caption text-muted">
+                  Every time on this day is either booked or inside the coach&apos;s minimum
+                  notice period. Pick a later date.
+                </p>
+              ) : null}
+              <div className="grid grid-cols-2 gap-2 min-[400px]:grid-cols-3 sm:grid-cols-4 xl:grid-cols-5">
                 {slots.map((slot) => (
                   <button
                     key={slot.start}
@@ -205,28 +240,66 @@ export function BookingWidget({
                           : undefined
                     }
                     className={cn(
-                      "rounded-sm border px-2 py-2 font-mono text-[0.75rem] tabular-nums transition-colors",
+                      "min-h-11 rounded-sm px-2 py-2 font-mono text-[0.75rem] tabular-nums",
+                      "transition-[box-shadow,transform,background-color] duration-200 ease-out-quart",
+                      "motion-reduce:transform-none",
                       slotStart === slot.start
-                        ? "border-blood bg-blood text-canvas"
+                        ? "grad-blood text-white shadow-accent"
                         : slot.available
-                          ? "border-hairline-hi text-ink hover:border-blood"
-                          : "border-hairline text-muted-dim line-through opacity-50",
+                          ? "bg-surface text-ink shadow-e1 hover:-translate-y-0.5 hover:shadow-e2"
+                          : "bg-surface-2 text-muted-dim line-through",
                     )}
                   >
                     {formatTime24to12(slot.start)}
                   </button>
                 ))}
               </div>
+              </>
             )}
           </div>
         </fieldset>
       </div>
 
       {/* Details */}
-      <Card className="h-fit">
+      <Card className="h-fit lg:sticky lg:top-24">
         <h2 className="font-display text-sm uppercase tracking-[0.14em] text-ink">
           4. Your details
         </h2>
+
+        {/*
+          Live summary of steps 1-3.
+
+          On a phone the three pickers scroll off the top long before the submit
+          button, so a visitor filling in their name could no longer see which
+          slot they had chosen. Echoing it here means the choice is visible at
+          the moment of committing.
+        */}
+        <dl className="mt-4 grid grid-cols-3 gap-2 rounded-md bg-surface-2 p-3 text-[0.7rem]">
+          <div className="min-w-0">
+            <dt className="uppercase tracking-[0.12em] text-muted-dim">Coach</dt>
+            <dd className="mt-0.5 truncate font-semibold text-ink">
+              {coaches.find((c) => c.slug === coachSlug)?.name ?? "—"}
+            </dd>
+          </div>
+          <div className="min-w-0">
+            <dt className="uppercase tracking-[0.12em] text-muted-dim">Date</dt>
+            <dd className="mt-0.5 truncate font-semibold text-ink tabular-nums">
+              {date
+                ? new Date(`${date}T00:00:00Z`).toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    timeZone: "UTC",
+                  })
+                : "—"}
+            </dd>
+          </div>
+          <div className="min-w-0">
+            <dt className="uppercase tracking-[0.12em] text-muted-dim">Time</dt>
+            <dd className="mt-0.5 truncate font-semibold text-ink tabular-nums">
+              {slotStart ? formatTime24to12(slotStart) : "—"}
+            </dd>
+          </div>
+        </dl>
 
         <div className="mt-5 flex flex-col gap-4">
           {error ? <FormAlert>{error}</FormAlert> : null}

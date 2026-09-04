@@ -146,11 +146,16 @@ export interface CoachRow {
   name: string;
   kind: string;
   headline: string | null;
+  bio: string | null;
+  specialties: string[];
   slot_minutes: number;
   lead_time_minutes: number;
+  max_days_ahead: number;
+  sort_order: number;
   is_active: boolean;
   phone: string | null;
-  windows: { weekday: number; start_time: string; end_time: string }[];
+  /** `id` is absent for demo rows, which is what disables their delete button. */
+  windows: { id?: string; weekday: number; start_time: string; end_time: string }[];
 }
 
 export async function getCoaches(): Promise<AdminResult<CoachRow>> {
@@ -165,6 +170,10 @@ export async function getCoaches(): Promise<AdminResult<CoachRow>> {
           name: "Coach Mack",
           kind: "trainer",
           headline: "Head coach and founder",
+          bio: null,
+          specialties: [],
+          max_days_ahead: 30,
+          sort_order: 0,
           slot_minutes: 30,
           lead_time_minutes: 120,
           is_active: true,
@@ -178,9 +187,13 @@ export async function getCoaches(): Promise<AdminResult<CoachRow>> {
         {
           id: "demo-2",
           slug: "dietician",
-          name: "Dr. Sneha Verma",
+          name: "Dt. Surabhi Sharma",
           kind: "dietician",
           headline: "Clinical dietician, RD",
+          bio: null,
+          specialties: [],
+          max_days_ahead: 30,
+          sort_order: 0,
           slot_minutes: 45,
           lead_time_minutes: 120,
           is_active: true,
@@ -196,6 +209,10 @@ export async function getCoaches(): Promise<AdminResult<CoachRow>> {
           name: "Vikram Rao",
           kind: "trainer",
           headline: "Strength and conditioning",
+          bio: null,
+          specialties: [],
+          max_days_ahead: 30,
+          sort_order: 0,
           slot_minutes: 30,
           lead_time_minutes: 120,
           is_active: true,
@@ -209,10 +226,12 @@ export async function getCoaches(): Promise<AdminResult<CoachRow>> {
   const [coaches, contacts, availability] = await Promise.all([
     admin
       .from("coaches")
-      .select("id, slug, name, kind, headline, slot_minutes, lead_time_minutes, is_active")
+      .select(
+        "id, slug, name, kind, headline, bio, specialties, slot_minutes, lead_time_minutes, max_days_ahead, sort_order, is_active",
+      )
       .order("sort_order", { ascending: true }),
     admin.from("coach_contacts").select("coach_id, phone_e164"),
-    admin.from("coach_availability").select("coach_id, weekday, start_time, end_time"),
+    admin.from("coach_availability").select("id, coach_id, weekday, start_time, end_time"),
   ]);
 
   const phoneByCoach = new Map(
@@ -225,13 +244,18 @@ export async function getCoaches(): Promise<AdminResult<CoachRow>> {
     name: c.name as string,
     kind: c.kind as string,
     headline: (c.headline as string) ?? null,
+    bio: (c.bio as string) ?? null,
+    specialties: (c.specialties as string[]) ?? [],
     slot_minutes: c.slot_minutes as number,
     lead_time_minutes: c.lead_time_minutes as number,
+    max_days_ahead: c.max_days_ahead as number,
+    sort_order: c.sort_order as number,
     is_active: c.is_active as boolean,
     phone: phoneByCoach.get(c.id as string) ?? null,
     windows: (availability.data ?? [])
       .filter((a) => a.coach_id === c.id)
       .map((a) => ({
+        id: a.id as string,
         weekday: a.weekday as number,
         start_time: String(a.start_time).slice(0, 5),
         end_time: String(a.end_time).slice(0, 5),

@@ -118,3 +118,37 @@ export async function resolveAccess(
   }
   return access;
 }
+
+/**
+ * Does this user hold any live, unrevoked entitlement?
+ *
+ * Used to gate the coach's direct phone number. The number is a paid asset:
+ * a free booking gets a session, but the coach's mobile only reaches someone
+ * who has actually bought a plan. Kept here rather than inline so the booking
+ * page, and anything that gates on payment later, share one definition of
+ * "has paid" — the plan paywall drifting from the phone gate is exactly the
+ * class of bug this file exists to prevent.
+ *
+ * `revoked_at is null` matters: a refund revokes the entitlement, and a
+ * refunded customer must lose the number along with the plan.
+ */
+export async function hasLiveEntitlement(userId: string | null | undefined): Promise<boolean> {
+  if (!userId) return false;
+
+  const admin = createAdminClient();
+  if (!admin) return false;
+
+  const { count, error } = await admin
+    .from("entitlements")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .is("revoked_at", null)
+    .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`);
+
+  if (error) {
+    // Fail CLOSED. An error here must not hand out a phone number.
+    console.error("[entitlements] hasLiveEntitlement failed", error);
+    return false;
+  }
+  return (count ?? 0) > 0;
+}

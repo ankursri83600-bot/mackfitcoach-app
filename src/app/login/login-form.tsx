@@ -13,6 +13,24 @@ export function LoginForm() {
   const params = useSearchParams();
   const next = params.get("next") ?? "/dashboard";
 
+  /**
+   * Failures from /auth/callback arrive as ?error=. Previously they were
+   * dropped, so a dead confirmation link looked identical to a fresh visit and
+   * gave the user nothing to act on. `missing_code` in particular almost
+   * always means the Site URL / redirect allowlist is wrong in Supabase, so it
+   * gets a message that says so rather than echoing the raw slug.
+   */
+  const callbackError = params.get("error");
+  const CALLBACK_MESSAGES: Record<string, string> = {
+    missing_code:
+      "That confirmation link did not carry a token. It may have already been used, or the link was truncated by your email client — request a new one below.",
+    invalid_code: "That confirmation link has expired or was already used. Request a new one.",
+    not_configured: "Sign-in is temporarily unavailable. Please try again shortly.",
+  };
+  const callbackMessage = callbackError
+    ? (CALLBACK_MESSAGES[callbackError] ?? decodeURIComponent(callbackError))
+    : null;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -55,6 +73,7 @@ export function LoginForm() {
 
   return (
     <Card className="mt-8">
+          {callbackMessage ? <FormAlert>{callbackMessage}</FormAlert> : null}
           {!supabase ? (
             <SupabaseNotice />
           ) : (

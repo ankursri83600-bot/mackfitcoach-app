@@ -9,6 +9,7 @@ import {
   StatusPill,
 } from "@/components/admin/ui";
 import { getCoaches, isDemoMode } from "@/lib/admin/queries";
+import { AvailabilityEditor, CoachRowActions, NewCoachButton } from "./coach-editor";
 import { WEEKDAY_LABEL } from "@/lib/diet/constants";
 import { formatTime24to12 } from "@/lib/utils";
 
@@ -26,6 +27,15 @@ export default async function AdminCoachesPage() {
       />
 
       {demo ? <DemoBanner /> : null}
+
+      {/* In demo mode the ids are fabricated, so every write would 404 or, worse,
+          hit a real row that happens to share an id. The editor is hidden rather
+          than disabled so there is nothing to click by mistake. */}
+      {demo ? null : (
+        <div className="mb-8 flex justify-end">
+          <NewCoachButton />
+        </div>
+      )}
 
       <div className="mb-8 rounded-md border border-hairline bg-surface p-5">
         <p className="font-display text-[0.72rem] uppercase tracking-[0.16em] text-ink">
@@ -66,34 +76,33 @@ export default async function AdminCoachesPage() {
               />
 
               <div className="mt-6">
-                <p className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">
-                  Weekly availability
-                </p>
-                {coach.windows.length === 0 ? (
-                  <p className="mt-2 text-caption text-warn">
-                    No availability set — this coach cannot be booked.
-                  </p>
+                {demo ? (
+                  <>
+                    <p className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-dim">
+                      Weekly availability
+                    </p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {coach.windows.map((w, i) => (
+                        <li
+                          key={`${w.weekday}-${w.start_time}-${i}`}
+                          className="rounded-sm border border-hairline-hi px-3 py-1.5 font-mono text-[0.68rem] tabular-nums text-muted"
+                        >
+                          <span className="text-ink">{WEEKDAY_LABEL[w.weekday].slice(0, 3)}</span>{" "}
+                          {formatTime24to12(w.start_time)} – {formatTime24to12(w.end_time)}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 ) : (
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {coach.windows.map((w, i) => (
-                      <li
-                        key={`${w.weekday}-${w.start_time}-${i}`}
-                        className="rounded-sm border border-hairline-hi px-3 py-1.5 font-mono text-[0.68rem] tabular-nums text-muted"
-                      >
-                        <span className="text-ink">{WEEKDAY_LABEL[w.weekday].slice(0, 3)}</span>{" "}
-                        {formatTime24to12(w.start_time)} – {formatTime24to12(w.end_time)}
-                      </li>
-                    ))}
-                  </ul>
+                  <AvailabilityEditor coach={coach} />
                 )}
-                {coach.windows.length > 0 ? (
-                  <p className="mt-3 text-[0.68rem] leading-relaxed text-muted-dim">
-                    Individual slots are derived from these windows at request time, so changing a
-                    window instantly changes what clients can book — there are no pre-generated slot
-                    rows to clean up.
-                  </p>
-                ) : null}
               </div>
+
+              {demo ? null : (
+                <div className="mt-6 border-t border-hairline pt-5">
+                  <CoachRowActions coach={coach} />
+                </div>
+              )}
             </SectionCard>
           ))}
         </div>

@@ -53,15 +53,33 @@ export async function listCoaches(): Promise<CoachRecord[]> {
     bio: (row.bio as string) ?? "",
     specialties: (row.specialties as string[]) ?? [],
     experienceYears: 0,
+    // Storage first; otherwise the bundled portrait for this slug. The old
+    // fallback was Mack's photo for EVERY coach, so the dietician and the
+    // trainer both showed his face until a photo_path was set.
     photoSrc: row.photo_path
       ? publicStorageUrl("coach-photos", row.photo_path as string)
-      : "/coach/coach-mack.jpg",
+      : bundledPortrait(row.slug as string),
     id: row.id as string,
     slotMinutes: (row.slot_minutes as number) ?? 30,
     leadTimeMinutes: (row.lead_time_minutes as number) ?? 120,
     maxDaysAhead: (row.max_days_ahead as number) ?? 30,
     timezone: (row.timezone as string) ?? "Asia/Kolkata",
   }));
+}
+
+/**
+ * Portraits that ship with the app, keyed by slug. A coach whose slug has no
+ * bundled file falls back to the founder's photo rather than a broken image;
+ * upload to the `coach-photos` bucket and set `photo_path` to override.
+ */
+const BUNDLED_PORTRAITS: Record<string, string> = {
+  mack: "/coach/coach-mack.jpg",
+  dietician: "/coach/coach-dietician.jpg",
+  trainer: "/coach/coach-trainer.jpg",
+};
+
+function bundledPortrait(slug: string): string {
+  return BUNDLED_PORTRAITS[slug] ?? "/coach/coach-mack.jpg";
 }
 
 export async function getCoachBySlug(slug: string): Promise<CoachRecord | null> {

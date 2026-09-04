@@ -437,6 +437,130 @@
   }
 }
 
+
+/* ============================================================================
+   Scroll-driven motion.
+
+   These use the native scroll-timeline API (`animation-timeline: view()`),
+   which runs entirely off the main thread — no IntersectionObserver, no scroll
+   listener, no JS at all. Where it is unsupported the animation simply never
+   applies and the element renders in its final state, so this is additive
+   polish on top of the existing `.js-reveal` system rather than a replacement
+   for it.
+
+   The `@supports` guard is doing real work: without it, browsers that do not
+   understand `view()` would still apply the keyframes' 0% state and leave
+   content stuck invisible.
+   ========================================================================= */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Fade + rise, driven by the element's own position in the viewport. */
+    .scroll-rise {
+      animation: scroll-rise linear both;
+      animation-timeline: view();
+      /* Starts as the element enters, finishes 40% up the viewport — so it is
+         fully settled well before the reader's eye arrives. */
+      animation-range: entry 0% cover 40%;
+    }
+
+    /* Slow parallax drift for decorative art. */
+    .scroll-drift {
+      animation: scroll-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    /* Horizontal wipe for section rules. */
+    .scroll-wipe {
+      animation: scroll-wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+@keyframes scroll-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes scroll-drift {
+  from {
+    transform: translate3d(0, 6%, 0);
+  }
+  to {
+    transform: translate3d(0, -6%, 0);
+  }
+}
+
+@keyframes scroll-wipe {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Reading-progress bar. `scroll()` tracks the document scroller, so the bar
+   fills as the page is read with zero JS. */
+.scroll-progress {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-wipe linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+/* ============================================================================
+   Page transitions.
+
+   Next's App Router opts into the View Transitions API; these rules describe
+   what the browser should CROSS-FADE. Kept deliberately short (220ms) — a page
+   transition that draws attention to itself is a page transition that gets
+   turned off.
+   ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 180ms var(--ease-out-quart) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 220ms var(--ease-out-quart) both;
+  }
+}
+
+/* Honour the OS setting: swap instantly rather than animating. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
 /* ============================================================================
    Print — used by the diet chart print route.
    ========================================================================= */

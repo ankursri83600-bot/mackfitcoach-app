@@ -168,13 +168,13 @@ export const COACHES: readonly Coach[] = [
   },
   {
     slug: "dietician",
-    name: "Dr. Sneha Verma",
+    name: "Dt. Surabhi Sharma",
     kind: "dietician",
     headline: "Clinical dietician, RD",
     bio: "Registered dietician specialising in Indian household nutrition, PCOS and thyroid-friendly planning, and diabetic-safe fat loss.",
     specialties: ["PCOS", "Thyroid", "Diabetic-safe plans"],
     experienceYears: 9,
-    photoSrc: "/placeholder/coach-dietician.jpg",
+    photoSrc: "/coach/coach-dietician.jpg",
   },
   {
     slug: "trainer",
@@ -184,7 +184,7 @@ export const COACHES: readonly Coach[] = [
     bio: "Ex-athlete turned coach. Handles form correction over video and programming for people training at home or in a crowded local gym.",
     specialties: ["Home workouts", "Form correction", "Mobility"],
     experienceYears: 7,
-    photoSrc: "/placeholder/coach-trainer.jpg",
+    photoSrc: "/coach/coach-trainer.jpg",
   },
 ];
 

@@ -45,7 +45,7 @@ const COACHES = [
     bio: "Twelve years on the gym floor, from first-time lifters to stage-ready physiques. Builds plans around what you can actually sustain.",
     specialties: ["Body recomposition", "Strength", "Contest prep"],
     slot_minutes: 30,
-    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+919999999999",
+    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+916299534082",
     // Mon-Sat mornings and evenings.
     availability: [
       ...[0, 1, 2, 3, 4, 5].map((weekday) => ({ weekday, start_time: "07:00", end_time: "10:00" })),
@@ -54,13 +54,13 @@ const COACHES = [
   },
   {
     slug: "dietician",
-    name: "Dr. Sneha Verma",
+    name: "Dt. Surabhi Sharma",
     kind: "dietician" as const,
     headline: "Clinical dietician, RD",
     bio: "Registered dietician specialising in Indian household nutrition, PCOS and thyroid-friendly planning, and diabetic-safe fat loss.",
     specialties: ["PCOS", "Thyroid", "Diabetic-safe plans"],
     slot_minutes: 45,
-    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+919999999999",
+    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+916299534082",
     availability: [1, 3, 5].map((weekday) => ({
       weekday,
       start_time: "11:00",
@@ -75,7 +75,7 @@ const COACHES = [
     bio: "Ex-athlete turned coach. Handles form correction over video and programming for home or crowded local gyms.",
     specialties: ["Home workouts", "Form correction", "Mobility"],
     slot_minutes: 30,
-    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+919999999999",
+    phone: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "+916299534082",
     availability: [1, 2, 3, 4].map((weekday) => ({
       weekday,
       start_time: "17:00",

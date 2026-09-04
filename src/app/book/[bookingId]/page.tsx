@@ -7,6 +7,7 @@ import { Badge, ButtonLink, Card, Container, Eyebrow, Rule, Section } from "@/co
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { bookingWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
+import { hasLiveEntitlement } from "@/lib/entitlements";
 import { formatDateIST, formatTime24to12 } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Booking confirmed" };
@@ -34,13 +35,18 @@ export default async function BookingDetailPage({
   // Access: the owner, or an anonymous booker who has the (unguessable) id.
   // A signed-in user must not be able to read someone else's booking.
   const user = await getCurrentUser();
-  if (booking.user_id && (!user || user.id !== booking.user_id)) {
-    const { data: profile } = user
-      ? await admin.from("profiles").select("role").eq("id", user.id).maybeSingle()
-      : { data: null };
-    const isStaff =
-      profile && ["admin", "dietician", "trainer"].includes(profile.role as string);
-    if (!isStaff) notFound();
+
+  // Hoisted: the phone gate below needs it too, and staff must never be
+  // downgraded to "unpaid" just because they did not buy anything.
+  const { data: viewerProfile } = user
+    ? await admin.from("profiles").select("role").eq("id", user.id).maybeSingle()
+    : { data: null };
+  const isStaff = Boolean(
+    viewerProfile && ["admin", "dietician", "trainer"].includes(viewerProfile.role as string),
+  );
+
+  if (booking.user_id && (!user || user.id !== booking.user_id) && !isStaff) {
+    notFound();
   }
 
   const coach = booking.coaches as { name?: string; kind?: string } | null;
@@ -53,7 +59,16 @@ export default async function BookingDetailPage({
     .eq("coach_id", booking.coach_id as string)
     .maybeSingle();
 
-  const coachPhone = contact?.phone_e164 as string | undefined;
+  /**
+   * The coach's number is a PAID asset.
+   *
+   * A booking on its own no longer earns it: anyone can reserve a free slot,
+   * and publishing the coach's mobile to every one of them is what the site
+   * was doing. Staff always see it, and so does anyone holding a live
+   * entitlement — which a refund revokes, taking the number with it.
+   */
+  const paid = isStaff || (await hasLiveEntitlement(user?.id));
+  const coachPhone = paid ? (contact?.phone_e164 as string | undefined) : undefined;
 
   const waHref = coachPhone
     ? whatsappLink(

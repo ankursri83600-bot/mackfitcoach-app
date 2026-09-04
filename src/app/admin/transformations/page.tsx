@@ -13,6 +13,8 @@ import {
 import { getTransformations, isDemoMode } from "@/lib/admin/queries";
 
 import { toggleTransformation } from "./actions";
+import { setConsent } from "./crud";
+import { NewStoryButton, StoryRowActions } from "./editor";
 
 export const metadata: Metadata = { title: "Admin — gallery" };
 
@@ -31,6 +33,14 @@ export default async function AdminTransformationsPage() {
       />
 
       {demo ? <DemoBanner /> : null}
+
+      {/* Hidden rather than disabled in demo mode: the ids are fabricated, so
+          every write would either miss or hit an unrelated real row. */}
+      {demo ? null : (
+        <div className="mb-8 flex justify-end">
+          <NewStoryButton />
+        </div>
+      )}
 
       <section className="grid gap-4 sm:grid-cols-3">
         <StatTile label="Live on the site" value={String(live.length)} tone="good" />
@@ -83,7 +93,25 @@ export default async function AdminTransformationsPage() {
                   {Math.abs(change).toFixed(0)} kg
                 </Cell>
                 <Cell>
-                  <StatusPill value={row.consent_on_file ? "confirmed" : "requested"} />
+                  {demo ? (
+                    <StatusPill value={row.consent_on_file ? "confirmed" : "requested"} />
+                  ) : (
+                    <form action={setConsent} className="flex items-center gap-2">
+                      <input type="hidden" name="id" value={row.id} />
+                      <input
+                        type="hidden"
+                        name="consent"
+                        value={row.consent_on_file ? "false" : "true"}
+                      />
+                      <StatusPill value={row.consent_on_file ? "confirmed" : "requested"} />
+                      <button
+                        type="submit"
+                        className="whitespace-nowrap text-[0.62rem] uppercase tracking-[0.14em] text-muted-dim underline-offset-2 transition-colors hover:text-blood hover:underline"
+                      >
+                        {row.consent_on_file ? "Withdraw" : "Record"}
+                      </button>
+                    </form>
+                  )}
                 </Cell>
                 <Cell>
                   <StatusPill value={isLive ? "paid" : "cancelled"} />
@@ -109,6 +137,11 @@ export default async function AdminTransformationsPage() {
                       {row.is_published ? "Unpublish" : "Publish"}
                     </button>
                   </form>
+                  {demo ? null : (
+                    <div className="mt-2">
+                      <StoryRowActions story={row} />
+                    </div>
+                  )}
                 </Cell>
               </Row>
             );

@@ -213,7 +213,7 @@ export const DEMO_BOOKINGS = [
     mode: "whatsapp",
     topic: "Want to check if my protein target is realistic on a budget.",
     preferred_time: "after 8pm on weekdays",
-    coaches: { name: "Dr. Sneha Verma", kind: "dietician" },
+    coaches: { name: "Dt. Surabhi Sharma", kind: "dietician" },
   },
   {
     id: "f0000000-0000-0000-0000-000000000002",
@@ -226,7 +226,7 @@ export const DEMO_BOOKINGS = [
     mode: "phone",
     topic: "PCOS-friendly swaps for my current plan.",
     preferred_time: null,
-    coaches: { name: "Dr. Sneha Verma", kind: "dietician" },
+    coaches: { name: "Dt. Surabhi Sharma", kind: "dietician" },
   },
   {
     id: "f0000000-0000-0000-0000-000000000003",
@@ -309,7 +309,7 @@ export const DEMO_USERS = [
   },
   {
     id: "b0000000-0000-0000-0000-000000000002",
-    full_name: "Dr. Sneha Verma",
+    full_name: "Dt. Surabhi Sharma",
     phone: "+919000000011",
     role: "dietician",
     created_at: "2026-06-04T00:00:00Z",

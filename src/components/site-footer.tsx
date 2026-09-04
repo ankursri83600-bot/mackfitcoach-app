@@ -118,13 +118,7 @@ export function SiteFooter() {
               <Mail className="size-3.5" aria-hidden="true" />
               {siteConfig.contact.email}
             </a>
-            <a
-              href={`tel:${siteConfig.contact.whatsapp}`}
-              className="inline-flex items-center gap-2 text-caption text-muted transition-colors hover:text-ink"
-            >
-              <Phone className="size-3.5" aria-hidden="true" />
-              {siteConfig.contact.phoneLabel}
-            </a>
+
           </div>
           <p className="text-caption text-muted-dim">
             © {year} {siteConfig.name}. All rights reserved.

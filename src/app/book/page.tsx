@@ -4,12 +4,12 @@ export const revalidate = 300;
 import type { Metadata } from "next";
 
 import { FormAlert } from "@/components/form";
+import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/motion/reveal";
 import { Container, Eyebrow, Section } from "@/components/ui";
 import { listCoaches } from "@/lib/data/coaches";
 import { upcomingDates } from "@/lib/slots";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { supportWhatsappLink } from "@/lib/whatsapp";
 
 import { BookingWidget } from "./booking-widget";
 
@@ -42,14 +42,9 @@ export default async function BookPage() {
           <Reveal className="mb-8">
             <FormAlert tone="info">
               <strong className="text-ink">Online booking is not connected yet.</strong> Add your
-              Supabase keys to enable it. In the meantime,{" "}
-              <a
-                href={supportWhatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink underline"
-              >
-                message the coach on WhatsApp
+              Supabase keys to enable it. In the meantime, email{" "}
+              <a href={`mailto:${siteConfig.contact.email}`} className="text-ink underline">
+                {siteConfig.contact.email}
               </a>
               .
             </FormAlert>

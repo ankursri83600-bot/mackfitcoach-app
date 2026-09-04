@@ -78,13 +78,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <style>{`.js-reveal,.js-split-unit{opacity:1!important;transform:none!important;transition:none!important}`}</style>
         </noscript>
       </head>
-      <body className="min-h-dvh antialiased">
+      {/* `antialiased` deliberately removed: subpixel smoothing is what makes
+          dark-on-light body text hold its weight. It was right for the old
+          bone-on-black theme and thins the type on paper. */}
+      <body className="min-h-dvh">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-blood focus:px-4 focus:py-2 focus:text-canvas"
         >
           Skip to content
         </a>
+
+        {/* Reading progress. Driven by `animation-timeline: scroll(root)`, so
+            it costs no JS and no scroll listener; in browsers without
+            scroll-timeline it stays at scaleX(0) and is simply invisible. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-x-0 top-0 z-[90] h-0.5"
+        >
+          <div className="scroll-progress h-full w-full grad-blood" />
+        </div>
         <SiteChrome>
           <Preloader />
         </SiteChrome>

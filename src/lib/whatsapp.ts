@@ -40,7 +40,11 @@ export function bookingWhatsappMessage(args: BookingMessageArgs): string {
   return lines.join("\n");
 }
 
-/** Generic business WhatsApp link, for pre-sales questions. */
-export function supportWhatsappLink(message = "Hi, I have a question about your coaching plans.") {
-  return whatsappLink(siteConfig.contact.whatsapp, message);
-}
+/*
+ * `supportWhatsappLink` was removed deliberately.
+ *
+ * It rendered the business WhatsApp number into public pages. The number is
+ * now a paid asset: it reaches a client only through `hasLiveEntitlement`, on
+ * a booking they own. Re-adding a generic public link would reopen that hole,
+ * so the helper is gone rather than merely unused.
+ */
