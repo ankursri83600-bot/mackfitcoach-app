@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 import { LockedDayCard, PlanDayCard } from "@/components/plan/plan-day-card";
 import { MacroRing } from "@/components/plan/macro-ring";
+import { ShoppingListPanel } from "@/components/plan/shopping-list";
 import {
   Badge,
   ButtonLink,
@@ -151,6 +152,10 @@ export default async function PlanPage({ params, searchParams }: PageProps) {
             </div>
           </Reveal>
         ) : null}
+
+        <Reveal delay={0.1} className="mt-10">
+          <ShoppingListPanel plan={plan} locked={!unlocked} />
+        </Reveal>
 
         <Reveal delay={0.1} as="div" className="mt-12 grid gap-6 lg:grid-cols-2">
           <div>

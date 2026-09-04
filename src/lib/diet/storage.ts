@@ -198,6 +198,9 @@ export async function listPlansForUser(userId: string) {
       bmi: plan.metrics.bmi,
       goal: plan.input.goal,
       dietType: plan.input.dietType,
+      // Needed by the dashboard's progress chart to draw a target line. The
+      // whole plan_json is already in memory here, so this is free.
+      heightCm: plan.input.heightCm,
     };
   });
 }

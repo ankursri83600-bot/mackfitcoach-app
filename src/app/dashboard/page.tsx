@@ -19,6 +19,10 @@ import { listPlansForUser } from "@/lib/diet/storage";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { GOAL_LABEL } from "@/lib/diet/constants";
 import { formatDateIST, formatINR, formatTime24to12 } from "@/lib/utils";
+import { idealWeightKg } from "@/lib/diet";
+
+import { listWeightLogs } from "./progress-actions";
+import { Progress } from "./progress";
 
 export const metadata: Metadata = { title: "My dashboard" };
 
@@ -49,6 +53,15 @@ export default async function DashboardPage() {
       : Promise.resolve([]),
   ]);
 
+  const weightLogs = await listWeightLogs();
+
+  /**
+   * Target line on the chart comes from the most recent plan's height, via the
+   * same `idealWeightKg` the calculators use. If there is no plan yet there is
+   * no target — an invented one would be worse than none.
+   */
+  const targetKg = plans[0]?.heightCm ? idealWeightKg(plans[0].heightCm) : undefined;
+
   return (
     <Section>
       <Container>
@@ -59,7 +72,11 @@ export default async function DashboardPage() {
           </h1>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
+        <Reveal className="mt-12">
+          <Progress points={weightLogs} targetKg={targetKg} />
+        </Reveal>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* Plans */}
           <Reveal>
             <Card>

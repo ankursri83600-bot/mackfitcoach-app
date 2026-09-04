@@ -40,6 +40,7 @@ Apply the migrations **in order** in the Supabase SQL editor (or via
 | `0003_orders_razorpay.sql` | `orders`, `payment_events`, `entitlements`, settlement RPCs |
 | `0004_coaches_bookings.sql` | coaches, availability, `bookings`, `book_slot` |
 | `0005_transformations.sql` | gallery table + storage buckets |
+| `0006_progress.sql` | `weight_logs`, `plan_meal_swaps` (owner-only RLS) |
 
 Run them in the SQL editor rather than through PostgREST: `0001` creates a
 trigger on `auth.users`, which needs an owner of the auth schema.
