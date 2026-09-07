@@ -67,17 +67,7 @@ export default async function TransformationsPage() {
           ))}
         </Reveal>
 
-        {samples ? (
-          <Reveal delay={0.1}>
-            <div className="mt-12 rounded-md border border-hairline bg-surface p-5">
-              <Badge>Sample images</Badge>
-              <p className="mt-3 text-caption leading-relaxed text-muted">
-                These are placeholder figures, not real clients. Real before/after photos are only
-                published once written consent is on file — the database enforces it.
-              </p>
-            </div>
-          </Reveal>
-        ) : null}
+
 
         <Reveal delay={0.15} className="mt-14 text-center">
           <h2 className="font-display text-h3 text-ink">YOUR TURN</h2>

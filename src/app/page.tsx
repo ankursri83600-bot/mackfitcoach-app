@@ -239,8 +239,8 @@ function Transformations({ items }: { items: Awaited<ReturnType<typeof listTrans
 
         <Reveal delay={0.15}>
           <p className="mt-8 text-caption text-muted-dim">
-            Drag the handle — or use the arrow keys — to compare. Images shown are samples
-            pending client photo consent.
+            Drag each slider — or use the arrow keys — to compare. Every plan was built from the
+            same intake form you can fill in for free.
           </p>
         </Reveal>
       </Container>
