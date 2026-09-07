@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui";
 import { FormAlert } from "@/components/form";
@@ -44,6 +44,21 @@ export function RazorpayCheckout({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.Razorpay) {
+      setReady(true);
+      return;
+    }
+    const interval = setInterval(() => {
+      if (window.Razorpay) {
+        setReady(true);
+        clearInterval(interval);
+      }
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
 
   async function onPay() {
     setBusy(true);
@@ -147,7 +162,7 @@ export function RazorpayCheckout({
     <div className={className}>
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={() => setReady(true)}
         onError={() => setError("Payment window failed to load.")}
       />
