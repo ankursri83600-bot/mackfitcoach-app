@@ -18,7 +18,7 @@ import { formatINR } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Coaching plans from ₹499. Day one of your diet chart is always free — unlock the full week when you are ready.",
+    "Coaching plans from ₹299. Day one of your diet chart is always free — unlock the full week when you are ready.",
 };
 
 export default function PlansPage() {

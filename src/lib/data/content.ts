@@ -23,8 +23,8 @@ export const PLAN_TIERS: readonly PlanTier[] = [
   {
     slug: "starter",
     name: "Starter",
-    pricePaise: 49900,
-    comparePaise: 99900,
+    pricePaise: 29900,
+    comparePaise: 59900,
     durationWeeks: 2,
     tagline: "Your full 7-day chart, unlocked.",
     features: [
@@ -41,8 +41,8 @@ export const PLAN_TIERS: readonly PlanTier[] = [
   {
     slug: "pro",
     name: "Pro Coaching",
-    pricePaise: 249900,
-    comparePaise: 399900,
+    pricePaise: 109900,
+    comparePaise: 199900,
     durationWeeks: 6,
     tagline: "Diet plus a dietician on call.",
     features: [
@@ -60,8 +60,8 @@ export const PLAN_TIERS: readonly PlanTier[] = [
   {
     slug: "elite",
     name: "Elite Transformation",
-    pricePaise: 599900,
-    comparePaise: 899900,
+    pricePaise: 239900,
+    comparePaise: 399900,
     durationWeeks: 16,
     tagline: "The full 16-week transformation.",
     features: [
