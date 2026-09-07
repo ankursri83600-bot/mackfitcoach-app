@@ -19,7 +19,7 @@ export const siteConfig = {
   },
 
   social: {
-    instagram: "https://instagram.com/macfit_coach",
+    instagram: "https://www.instagram.com/mackfit_coach?stkn=MWRpZnZ3bXB5bHJ4bA==",
     youtube: "https://www.youtube.com/@Coachdhananjay",
   },
 
