@@ -107,8 +107,8 @@ export const TRANSFORMATIONS: readonly Transformation[] = [
       "The plan used food my mother already cooked. That is the only reason I stuck to it for 14 weeks.",
   },
   {
-    slug: "priya",
-    displayName: "Priya M.",
+    slug: "sheila",
+    displayName: "Sheila",
     goalLabel: "Fat loss + tone",
     weeks: 20,
     startKg: 76,
@@ -119,8 +119,8 @@ export const TRANSFORMATIONS: readonly Transformation[] = [
       "I was vegetarian and every other coach handed me chicken. Here the plan actually respected that.",
   },
   {
-    slug: "arjun",
-    displayName: "Arjun K.",
+    slug: "naman",
+    displayName: "Naman",
     goalLabel: "Muscle gain",
     weeks: 12,
     startKg: 58,
